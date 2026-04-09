@@ -14,8 +14,8 @@ const About: React.FC = () => {
                     L'ESPRIT <br />
                     <span className="text-primary italic">ANTIGRAVITÉ</span>
                 </h1>
-                <p className="text-xl text-white/80 leading-relaxed font-archivo">
-                    Je suis **Kany Dev**, architecte de solutions numériques spécialisé dans l'intersection
+                <p className="text-xl text-main leading-relaxed font-archivo">
+                    Je suis <strong>Kany Dev</strong>, architecte de solutions numériques spécialisé dans l'intersection
                     critique du développement web, du SEO technique et de l'intelligence artificielle.
                     Mon approche refuse les conventions pour privilégier l'impact pur et l'innovation radicale.
                 </p>
@@ -25,7 +25,7 @@ const About: React.FC = () => {
                 <div className="reveal glass p-10 border-l-4 border-primary">
                     <Target className="text-primary mb-6" size={32} />
                     <h3 className="text-2xl mb-4">MA MISSION</h3>
-                    <p className="text-white/60 leading-relaxed">
+                    <p className="text-muted leading-relaxed">
                         Élever les marques vers de nouveaux sommets de performance à travers des interfaces
                         intuitives et des systèmes automatisés par l'IA.
                     </p>
@@ -33,7 +33,7 @@ const About: React.FC = () => {
                 <div className="reveal glass p-10 border-l-4 border-accent">
                     <Shield className="text-accent mb-6" size={32} />
                     <h3 className="text-2xl mb-4">MA PHILOSOPHIE</h3>
-                    <p className="text-white/60 leading-relaxed">
+                    <p className="text-muted leading-relaxed">
                         Minimalisme, rapidité et transparence. Chaque ligne de code doit servir un objectif
                         de conversion clair.
                     </p>
@@ -74,7 +74,7 @@ const About: React.FC = () => {
             </section>
 
             <div className="reveal text-center">
-                <p className="text-white/40 font-mono text-sm mb-8 italic">
+                <p className="text-muted font-mono text-sm mb-8 italic">
                     &gt; "Le futur ne se prédit pas, il se code."
                 </p>
             </div>

@@ -8,6 +8,13 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
     const barRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        // Skip animation when reduced motion is preferred
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            setProgress(100);
+            const t = setTimeout(onComplete, 400);
+            return () => clearTimeout(t);
+        }
+
         const tl = gsap.timeline({
             onComplete: () => {
                 gsap.to(containerRef.current, {

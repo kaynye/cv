@@ -56,7 +56,7 @@ const AITerminal: React.FC = () => {
                         <div className="w-2 h-2 rounded-full bg-primary/40"></div>
                     </div>
                 </div>
-                <div className="p-6 h-64 overflow-y-auto font-mono text-xs text-text-muted space-y-2">
+                <div className="p-6 h-48 md:h-64 overflow-y-auto font-mono text-xs text-text-muted space-y-2">
                     {history.map((line, i) => (
                         <div key={i} className={line.startsWith('>') ? 'text-main font-bold' : ''}>{line}</div>
                     ))}

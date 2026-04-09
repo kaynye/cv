@@ -30,7 +30,7 @@ const ProjectsArchive: React.FC = () => {
             category: "Custom AI",
             year: "2024",
             tags: ["Python", "ElasticSearch", "AI"],
-            image: "https://images.unsplash.com/photo-1620712943543-bcc4638d9f8e?auto=format&fit=crop&q=80&w=800"
+            image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800"
         },
         {
             title: "Web3 Wallet Connect",

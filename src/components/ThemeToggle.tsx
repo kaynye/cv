@@ -13,13 +13,19 @@ const ThemeToggle: React.FC = () => {
     }, [isLight]);
 
     return (
-        <button
-            onClick={() => setIsLight(!isLight)}
-            className="w-10 h-10 rounded-full glass flex items-center justify-center text-main hover:scale-110 transition-transform"
-            aria-label="Toggle Theme"
-        >
-            {isLight ? <Moon size={18} /> : <Sun size={18} />}
-        </button>
+        <>
+            <button
+                onClick={() => setIsLight(!isLight)}
+                className="w-10 h-10 rounded-full glass flex items-center justify-center text-main hover:scale-110 transition-transform"
+                aria-label={isLight ? 'Passer en mode sombre' : 'Passer en mode clair'}
+            >
+                {isLight ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+            {/* Announces theme change to screen readers */}
+            <span className="sr-only" aria-live="polite" aria-atomic="true">
+                {isLight ? 'Mode clair activé' : 'Mode sombre activé'}
+            </span>
+        </>
     );
 };
 

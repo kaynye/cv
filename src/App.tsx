@@ -29,6 +29,11 @@ const App: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Skip cursor on touch-only devices and when reduced motion is preferred
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!supportsHover || prefersReduced) return;
+
     // Custom Cursor Logic
     const moveCursor = (e: MouseEvent) => {
       if (cursorRef.current) {
@@ -83,29 +88,39 @@ const App: React.FC = () => {
 
     // Small timeout to allow content to render before GSAP scans for .reveal
     const timer = setTimeout(() => {
-      const elements = gsap.utils.toArray<HTMLElement>('.reveal');
-      elements.forEach((elem) => {
-        gsap.to(elem, {
-          scrollTrigger: {
-            trigger: elem,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: 'power3.out',
+      const mm = gsap.matchMedia();
+
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        const elements = gsap.utils.toArray<HTMLElement>('.reveal');
+        elements.forEach((elem) => {
+          gsap.to(elem, {
+            scrollTrigger: {
+              trigger: elem,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power3.out',
+          });
         });
+
+        // Failsafe: if element is in viewport but still invisible, force it
+        setTimeout(() => {
+          elements.forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight) {
+              gsap.to(el, { opacity: 1, y: 0, duration: 0.5 });
+            }
+          });
+        }, 1000);
       });
 
-      // Failsafe: if element is in viewport but still invisible, force it
-      setTimeout(() => {
-        elements.forEach(el => {
-          if (el.getBoundingClientRect().top < window.innerHeight) {
-            gsap.to(el, { opacity: 1, y: 0, duration: 0.5 });
-          }
-        });
-      }, 1000);
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.utils.toArray<HTMLElement>('.reveal').forEach(el =>
+          gsap.set(el, { opacity: 1, y: 0 })
+        );
+      });
 
       ScrollTrigger.refresh();
     }, 500);
@@ -150,7 +165,7 @@ const App: React.FC = () => {
           </Routes>
         </main>
 
-        <footer className="relative z-10 border-t border-white/10 py-12 text-center text-white/40 text-sm font-space uppercase tracking-widest">
+        <footer className="relative z-10 border-t border-white/10 py-12 text-center text-muted text-sm font-space uppercase tracking-widest">
           &copy; {new Date().getFullYear()} Kany Dev — Built with React & AI
         </footer>
       </div>

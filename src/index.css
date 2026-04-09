@@ -3,9 +3,11 @@
 :root {
   --app-bg-main: #000000;
   --app-bg-surface: rgba(255, 255, 255, 0.05);
+  --app-bg-surface-hover: rgba(255, 255, 255, 0.07);
   --app-text-main: #ffffff;
   --app-text-muted: rgba(255, 255, 255, 0.6);
   --app-border: rgba(255, 255, 255, 0.1);
+  --app-border-hover: rgba(255, 255, 255, 0.2);
   --app-accent: #FACC15;
   --app-accent-text: #000000;
   --app-accent-muted: rgba(250, 204, 21, 0.1);
@@ -20,12 +22,17 @@
 .light-theme {
   --app-bg-main: #f8fafc;
   --app-bg-surface: rgba(0, 0, 0, 0.04);
+  --app-bg-surface-hover: rgba(0, 0, 0, 0.07);
   --app-text-main: #0f172a;
   --app-text-muted: #64748b;
   --app-border: rgba(0, 0, 0, 0.08);
+  --app-border-hover: rgba(0, 0, 0, 0.2);
   --app-accent: #facc15;
   --app-accent-text: #000000;
   --app-accent-muted: rgba(250, 204, 21, 0.2);
+  /* Shadow must contrast against the light bg — use text color */
+  --shadow-brutal: 4px 4px 0px 0px var(--app-text-main);
+  --shadow-brutal-lg: 8px 8px 0px 0px var(--app-text-main);
 }
 
 .light-theme .brutal-card {
@@ -95,9 +102,10 @@ h4 {
   transition: all 0.5s;
 }
 
+/* Accent color replaced with CSS variable; finite iterations (3) replace infinite */
 .glitch-hover:hover {
-  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-  text-shadow: 2px 0 #3B82F6, -2px 0 #facc15;
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both 3;
+  text-shadow: 2px 0 #3B82F6, -2px 0 var(--app-accent);
 }
 
 /* Premium Grain Texture */
@@ -114,9 +122,10 @@ body::before {
   z-index: 9999;
 }
 
+/* Uses design tokens instead of hardcoded rgba */
 .glass-card:hover {
-  background-color: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--app-bg-surface-hover);
+  border-color: var(--app-border-hover);
 }
 
 .brutal-card {
@@ -181,8 +190,14 @@ body::before {
   transition: width 0.3s;
 }
 
-.nav-link:hover::after {
+/* Hover and active page both show underline indicator */
+.nav-link:hover::after,
+.nav-link[aria-current="page"]::after {
   width: 100%;
+}
+
+.nav-link[aria-current="page"] {
+  color: var(--app-text-main);
 }
 
 /* Animations */
@@ -194,6 +209,13 @@ body::before {
   to {
     transform: translateX(-50%);
   }
+}
+
+@keyframes glitch {
+  0%, 100% { transform: none; }
+  25% { transform: skewX(-1deg) translateX(-2px); }
+  50% { transform: skewX(1deg) translateX(2px); }
+  75% { transform: skewX(-0.5deg) translateX(-1px); }
 }
 
 .reveal {
@@ -214,4 +236,34 @@ body::before {
   background-color: white;
   opacity: 0;
   transition: opacity 0.3s;
+}
+
+/* Custom Utilities */
+@utility vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* =====================================================
+   Accessibility: prefers-reduced-motion
+   GSAP animations are gated in JS via gsap.matchMedia().
+   CSS-only animations are paused/disabled here.
+===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable glitch hover animation */
+  .glitch-hover:hover {
+    animation: none;
+    text-shadow: none;
+  }
+
+  /* Show all reveal elements immediately */
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Pause the ribbon scroll animation */
+  @keyframes scroll {
+    from, to { transform: translateX(0); }
+  }
 }

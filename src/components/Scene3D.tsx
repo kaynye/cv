@@ -84,7 +84,7 @@ const Scene3D: React.FC = () => {
         };
     }, []);
 
-    return <div ref={containerRef} className="fixed inset-0 z-[-1] pointer-events-none opacity-40" />;
+    return <div ref={containerRef} className="fixed inset-0 z-[-1] pointer-events-none opacity-40" aria-hidden="true" />;
 };
 
 export default Scene3D;

@@ -14,6 +14,12 @@ const Hero: React.FC<HeroProps> = ({ isReady }) => {
     useEffect(() => {
         if (!isReady) return;
 
+        // Skip animation when reduced motion is preferred — just show content
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (contentRef.current) gsap.set(contentRef.current, { opacity: 1, y: 0 });
+            return;
+        }
+
         const tl = gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.5 } });
 
         // Split text for animation
@@ -48,7 +54,7 @@ const Hero: React.FC<HeroProps> = ({ isReady }) => {
         <section id="hero" className="min-h-[90vh] flex flex-col justify-center py-20 relative">
             <div className="max-w-6xl">
                 <div className="w-16 h-1 bg-primary mb-8" />
-                <h1 ref={titleRef} className="text-7xl md:text-[8rem] font-space font-black tracking-tighter leading-[0.8] mb-12 text-main uppercase">
+                <h1 ref={titleRef} className="text-4xl sm:text-6xl md:text-7xl xl:text-[8rem] font-space font-black tracking-tighter leading-[0.88] mb-12 text-main uppercase overflow-hidden">
                     DESIGNER DE SOLUTIONS
                 </h1>
 

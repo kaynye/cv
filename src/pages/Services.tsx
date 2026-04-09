@@ -34,7 +34,7 @@ const Services: React.FC = () => {
                 <h1 className="text-6xl md:text-8xl mb-8 tracking-tighter">
                     NOS <span className="text-accent italic">SUPER-POUVOIRS</span>
                 </h1>
-                <p className="max-w-2xl text-xl text-white/60 leading-relaxed font-archivo">
+                <p className="max-w-2xl text-xl text-muted leading-relaxed font-archivo">
                     Nous ne nous contentons pas de construire des sites. Nous forgeons des outils
                     de croissance propulsés par les dernières avancées technologiques.
                 </p>
@@ -45,10 +45,10 @@ const Services: React.FC = () => {
                     <div key={i} className="reveal glass p-8 flex flex-col items-start hover:border-white/40 transition-all duration-300">
                         <div className="text-primary mb-6">{s.icon}</div>
                         <h3 className="text-3xl mb-4 font-space">{s.title}</h3>
-                        <p className="text-white/40 mb-8 leading-relaxed">{s.description}</p>
+                        <p className="text-muted mb-8 leading-relaxed">{s.description}</p>
                         <ul className="space-y-3 mt-auto">
                             {s.features.map((f, j) => (
-                                <li key={j} className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/80">
+                                <li key={j} className="flex items-center gap-2 text-xs uppercase tracking-widest text-main">
                                     <Zap size={12} className="text-primary" /> {f}
                                 </li>
                             ))}

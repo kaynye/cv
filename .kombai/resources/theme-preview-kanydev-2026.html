@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theme Preview — Kany Dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Work+Sans:ital,wght@0,300;0,400;0,700;1,400&family=Epilogue:ital,wght@0,400;0,700;0,900;1,700&family=Inter:wght@300;400;500;600&family=Manrope:wght@400;600;700;800&family=Source+Sans+3:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* =====================================================
+       THEME VARIABLES
+    ===================================================== */
+
+    /* THEME 1 — Obsidian Gold (Luxurious & Premium) */
+    [data-theme="obsidian-gold"] {
+      --bg-main:     #08070D;
+      --bg-surface:  #110F1E;
+      --bg-card:     rgba(20, 17, 35, 0.9);
+      --text-main:   #F0EBF8;
+      --text-muted:  #8B8499;
+      --accent:      #C8A94A;
+      --accent-muted: rgba(200, 169, 74, 0.12);
+      --accent-text: #0A0808;
+      --secondary:   #9962D0;
+      --border:      rgba(200, 169, 74, 0.15);
+      --border-strong: rgba(200, 169, 74, 0.4);
+      --font-heading: 'Chakra Petch', sans-serif;
+      --font-body:    'Work Sans', sans-serif;
+      --glow: 0 0 40px rgba(200, 169, 74, 0.15);
+      --shadow-card: 0 4px 32px rgba(0,0,0,0.6);
+    }
+    [data-theme="obsidian-gold"][data-mode="light"] {
+      --bg-main:    #F5F0E8;
+      --bg-surface: #EDE5D5;
+      --bg-card:    rgba(245, 240, 232, 0.95);
+      --text-main:  #1A1208;
+      --text-muted: #7A6A50;
+      --border:     rgba(200, 169, 74, 0.25);
+      --border-strong: rgba(200, 169, 74, 0.6);
+    }
+
+    /* THEME 2 — Deep Amethyst (Luxurious & Premium, violet) */
+    [data-theme="deep-amethyst"] {
+      --bg-main:     #070510;
+      --bg-surface:  #0F0C1C;
+      --bg-card:     rgba(18, 14, 30, 0.9);
+      --text-main:   #EDE8F5;
+      --text-muted:  #7A7089;
+      --accent:      #9B5DE5;
+      --accent-muted: rgba(155, 93, 229, 0.12);
+      --accent-text: #FFF;
+      --secondary:   #D4A017;
+      --border:      rgba(155, 93, 229, 0.18);
+      --border-strong: rgba(155, 93, 229, 0.5);
+      --font-heading: 'Epilogue', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --glow: 0 0 50px rgba(155, 93, 229, 0.18);
+      --shadow-card: 0 4px 40px rgba(0,0,0,0.7);
+    }
+    [data-theme="deep-amethyst"][data-mode="light"] {
+      --bg-main:    #F3F0FA;
+      --bg-surface: #E8E2F5;
+      --bg-card:    rgba(243, 240, 250, 0.95);
+      --text-main:  #100820;
+      --text-muted: #6B5F80;
+      --border:     rgba(155, 93, 229, 0.2);
+      --border-strong: rgba(155, 93, 229, 0.5);
+    }
+
+    /* THEME 3 — Cyber Teal (Modern & Tech) */
+    [data-theme="cyber-teal"] {
+      --bg-main:     #03070F;
+      --bg-surface:  #070E1A;
+      --bg-card:     rgba(8, 16, 28, 0.92);
+      --text-main:   #D8EEF8;
+      --text-muted:  #5E8499;
+      --accent:      #00CCCC;
+      --accent-muted: rgba(0, 204, 204, 0.10);
+      --accent-text: #020F14;
+      --secondary:   #8000FF;
+      --border:      rgba(0, 204, 204, 0.14);
+      --border-strong: rgba(0, 204, 204, 0.45);
+      --font-heading: 'Manrope', sans-serif;
+      --font-body:    'Source Sans 3', sans-serif;
+      --glow: 0 0 60px rgba(0, 204, 204, 0.14);
+      --shadow-card: 0 4px 32px rgba(0,0,0,0.7);
+    }
+    [data-theme="cyber-teal"][data-mode="light"] {
+      --bg-main:    #EEF8FA;
+      --bg-surface: #DCF1F5;
+      --bg-card:    rgba(238, 248, 250, 0.95);
+      --text-main:  #030F14;
+      --text-muted: #3A6070;
+      --border:     rgba(0, 204, 204, 0.3);
+      --border-strong: rgba(0, 204, 204, 0.6);
+    }
+
+    /* =====================================================
+       BASE SHELL
+    ===================================================== */
+    body {
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+    }
+
+    /* Controls bar */
+    #controls {
+      position: sticky; top: 0; z-index: 1000;
+      background: #111; border-bottom: 1px solid #333;
+      padding: 12px 24px;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    #controls .ctrl-label {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: #888; font-family: monospace;
+    }
+    .theme-btn {
+      padding: 8px 18px; border: 2px solid #555; background: transparent;
+      color: #aaa; font-family: monospace; font-size: 12px; letter-spacing: 1px;
+      cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+    }
+    .theme-btn.active { border-color: var(--accent, #fff); color: var(--accent, #fff); background: var(--accent-muted, rgba(255,255,255,0.05)); }
+    .theme-btn:hover { border-color: #aaa; color: #fff; }
+
+    #theme-obsidian-gold.active { border-color: #C8A94A; color: #C8A94A; background: rgba(200,169,74,0.08); }
+    #theme-deep-amethyst.active { border-color: #9B5DE5; color: #9B5DE5; background: rgba(155,93,229,0.08); }
+    #theme-cyber-teal.active    { border-color: #00CCCC; color: #00CCCC; background: rgba(0,204,204,0.08); }
+
+    .mode-toggle {
+      margin-left: auto; padding: 8px 18px; border: 1px solid #555;
+      background: transparent; color: #aaa; font-family: monospace; font-size: 12px;
+      cursor: pointer; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .mode-toggle:hover { border-color: #aaa; color: #fff; }
+
+    /* Theme description panel */
+    #theme-desc {
+      padding: 16px 32px;
+      font-family: monospace; font-size: 13px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      display: flex; gap: 48px; flex-wrap: wrap; align-items: flex-start;
+    }
+    .desc-block { flex: 1; min-width: 200px; }
+    .desc-title { font-size: 15px; font-weight: bold; margin-bottom: 4px; }
+    .desc-sub { font-size: 11px; color: #777; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .desc-text { font-size: 12px; color: #aaa; line-height: 1.6; }
+    .palette-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .swatch { width: 28px; height: 28px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; position: relative; }
+    .swatch-label { font-size: 9px; text-align: center; color: #777; margin-top: 2px; }
+    .swatch-group { text-align: center; }
+    .font-sample { font-size: 11px; color: #aaa; }
+    .font-heading-sample { font-size: 24px; font-weight: 700; }
+    .font-body-sample { font-size: 13px; color: #999; margin-top: 2px; }
+
+    /* =====================================================
+       PREVIEW SHELL
+    ===================================================== */
+    #preview {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      font-family: var(--font-body);
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    /* Grain texture */
+    #preview::before {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+    }
+
+    /* Ambient glow blobs */
+    .glow-blob-1, .glow-blob-2 {
+      position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+      filter: blur(100px); transition: background 0.5s;
+    }
+    .glow-blob-1 { width: 500px; height: 500px; top: -100px; right: -100px; background: var(--accent-muted); opacity: 0.6; }
+    .glow-blob-2 { width: 400px; height: 400px; bottom: -80px; left: -80px; background: rgba(128,0,255,0.05); opacity: 0.5; }
+
+    .preview-inner { position: relative; z-index: 1; }
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
+    .p-nav {
+      position: sticky; top: 0; z-index: 100;
+      padding: 18px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(0,0,0,0.3); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .p-nav-logo {
+      font-family: var(--font-heading);
+      font-size: 20px; font-weight: 700;
+      letter-spacing: -0.03em; color: var(--text-main);
+    }
+    .p-nav-logo span { color: var(--accent); }
+    .p-nav-links { display: flex; gap: 32px; }
+    .p-nav-link {
+      font-family: var(--font-heading); font-size: 11px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted);
+      text-decoration: none; transition: color 0.2s; cursor: pointer;
+      position: relative;
+    }
+    .p-nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--accent); transition: width 0.3s;
+    }
+    .p-nav-link:hover { color: var(--text-main); }
+    .p-nav-link:hover::after { width: 100%; }
+    .p-nav-cta {
+      padding: 8px 20px; border: 1px solid var(--accent);
+      background: var(--accent); color: var(--accent-text);
+      font-family: var(--font-heading); font-size: 11px;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .p-nav-cta:hover { background: transparent; color: var(--accent); }
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+    .p-hero {
+      padding: 100px 60px 80px;
+      min-height: 90vh;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .p-hero-eyebrow {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
+    }
+    .p-hero-line { width: 48px; height: 2px; background: var(--accent); }
+    .p-hero-label {
+      font-family: var(--font-heading); font-size: 10px;
+      letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted);
+    }
+    .p-hero-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(56px, 8vw, 112px);
+      font-weight: 700; text-transform: uppercase;
+      line-height: 0.88; letter-spacing: -0.03em;
+      color: var(--text-main); margin-bottom: 40px;
+    }
+    .p-hero-heading em {
+      font-style: italic; color: var(--accent);
+    }
+    .p-hero-content {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; gap: 40px; flex-wrap: wrap;
+    }
+    .p-hero-desc { max-width: 420px; }
+    .p-hero-desc p {
+      font-size: 16px; line-height: 1.7; color: var(--text-muted);
+      margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.02em;
+    }
+    .p-hero-desc p em { color: var(--accent); font-style: italic; }
+    .p-hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .p-hero-tag {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px;
+      background: var(--accent-muted); border: 1px solid var(--border);
+      font-family: var(--font-heading); font-size: 9px;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .p-hero-tag:hover { color: var(--accent); }
+    .p-hero-cta {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 20px 40px;
+      background: var(--accent); color: var(--accent-text);
+      font-family: var(--font-heading); font-size: 14px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      border: 2px solid var(--accent);
+      box-shadow: 5px 5px 0 var(--border-strong);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .p-hero-cta:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--border-strong); }
+
+    /* =====================================================
+       SPECIALTIES
+    ===================================================== */
+    .p-specialties { padding: 80px 60px; border-top: 1px solid var(--border); }
+    .p-section-header { margin-bottom: 48px; }
+    .p-section-heading {
+      font-family: var(--font-heading); font-size: clamp(28px, 4vw, 52px);
+      font-weight: 700; text-transform: uppercase; letter-spacing: -0.02em;
+      color: var(--text-main); margin-bottom: 12px;
+    }
+    .p-section-heading em { color: var(--accent); font-style: italic; }
+    .p-section-line { width: 64px; height: 2px; background: var(--accent); }
+    .p-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 900px) { .p-cards { grid-template-columns: 1fr; } }
+    .p-card {
+      padding: 36px; border: 1px solid var(--border);
+      background: var(--bg-card); backdrop-filter: blur(16px);
+      border-radius: 2px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .p-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .p-card:hover { border-color: var(--border-strong); box-shadow: var(--glow); }
+    .p-card:hover::before { opacity: 1; }
+    .p-card-icon {
+      width: 48px; height: 48px;
+      background: var(--accent-muted); border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 24px; color: var(--accent);
+      transition: transform 0.4s;
+    }
+    .p-card:hover .p-card-icon { transform: scale(1.1); }
+    .p-card h3 {
+      font-family: var(--font-heading); font-size: 18px; font-weight: 700;
+      text-transform: uppercase; color: var(--text-main); margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .p-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+    .p-card-tags { display: flex; flex-direction: column; gap: 8px; }
+    .p-card-tag {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-heading); font-size: 9px;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted);
+    }
+    .p-card-tag::before { content: '⚡'; color: var(--accent); font-size: 9px; }
+
+    /* =====================================================
+       PROJECTS PREVIEW
+    ===================================================== */
+    .p-projects { padding: 80px 60px; border-top: 1px solid var(--border); }
+    .p-project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+    @media (max-width: 900px) { .p-project-grid { grid-template-columns: 1fr; } }
+    .p-project-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 2px; overflow: hidden;
+      transition: border-color 0.4s;
+    }
+    .p-project-card:hover { border-color: var(--border-strong); }
+    .p-project-img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      opacity: 0.7; transition: opacity 0.5s;
+    }
+    .p-project-card:hover .p-project-img { opacity: 1; }
+    .p-project-info { padding: 20px 24px; }
+    .p-project-cat {
+      font-family: var(--font-heading); font-size: 9px;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 6px; display: block;
+    }
+    .p-project-title {
+      font-family: var(--font-heading); font-size: 18px; font-weight: 700;
+      text-transform: uppercase; color: var(--text-main); margin-bottom: 12px;
+    }
+    .p-project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .p-project-tag {
+      padding: 3px 10px; font-family: var(--font-heading); font-size: 8px;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--accent-muted); color: var(--accent); font-weight: 700;
+    }
+
+    /* =====================================================
+       CONTACT SECTION
+    ===================================================== */
+    .p-contact {
+      margin: 80px 60px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      overflow: hidden; position: relative;
+    }
+    .p-contact::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--secondary), transparent);
+    }
+    .p-contact-inner {
+      padding: 60px; display: flex;
+      align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
+    }
+    .p-contact h2 {
+      font-family: var(--font-heading); font-size: clamp(32px, 5vw, 64px);
+      font-weight: 700; text-transform: uppercase;
+      letter-spacing: -0.02em; line-height: 0.9; margin-bottom: 20px;
+    }
+    .p-contact h2 em { color: var(--accent); font-style: italic; }
+    .p-contact-desc { font-size: 14px; color: var(--text-muted); max-width: 360px; line-height: 1.7; }
+    .p-contact-cta {
+      display: flex; flex-direction: column; gap: 16px; align-items: flex-start;
+    }
+    .p-email-btn {
+      display: block; padding: 18px 28px;
+      background: var(--accent); color: var(--accent-text);
+      font-family: var(--font-heading); font-size: 18px;
+      font-weight: 700; text-decoration: none;
+      border: 2px solid var(--accent); box-shadow: 5px 5px 0 var(--border-strong);
+      transition: all 0.2s; letter-spacing: -0.02em;
+    }
+    .p-email-btn:hover { transform: translate(-3px,-3px); box-shadow: 8px 8px 0 var(--border-strong); }
+    .p-socials { display: flex; gap: 10px; }
+    .p-social {
+      width: 48px; height: 48px;
+      border: 1px solid var(--border); background: var(--accent-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; cursor: pointer; transition: border-color 0.2s, color 0.2s;
+      color: var(--text-muted);
+    }
+    .p-social:hover { border-color: var(--accent); color: var(--accent); }
+    .p-ribbon {
+      background: var(--accent); border-top: 2px solid var(--border-strong);
+      padding: 14px 0; overflow: hidden;
+    }
+    .p-ribbon-inner {
+      display: flex; gap: 48px; animation: ribbon 24s linear infinite;
+      white-space: nowrap;
+    }
+    .p-ribbon-text {
+      font-family: var(--font-heading); font-size: 16px; font-weight: 700;
+      text-transform: uppercase; font-style: italic; letter-spacing: 0.1em;
+      color: var(--accent-text); flex-shrink: 0;
+    }
+    @keyframes ribbon {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    .p-footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 60px; text-align: center;
+    }
+    .p-footer p {
+      font-family: var(--font-heading); font-size: 11px; letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted); /* Fixed from text-white/40 → text-muted */
+    }
+
+    /* =====================================================
+       SCROLL PROGRESS BAR
+    ===================================================== */
+    #scroll-bar {
+      position: sticky; top: 55px; left: 0; width: 100%; height: 2px; z-index: 99;
+      background: var(--border);
+    }
+    #scroll-fill { height: 100%; background: var(--accent); width: 35%; transition: width 0.1s; }
+
+    /* =====================================================
+       TRANSITION
+    ===================================================== */
+    #preview, .p-nav, .p-hero, .p-specialties, .p-projects, .p-contact, .p-footer, .p-card {
+      transition: background 0.4s, color 0.4s, border-color 0.4s;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg-main); }
+    ::-webkit-scrollbar-thumb { background: var(--border-strong); }
+  </style>
+</head>
+<body>
+
+<!-- ===== CONTROLS ===== -->
+<div id="controls">
+  <span class="ctrl-label">Theme:</span>
+  <button id="theme-obsidian-gold" class="theme-btn active" onclick="setTheme('obsidian-gold')">① Obsidian Gold</button>
+  <button id="theme-deep-amethyst" class="theme-btn" onclick="setTheme('deep-amethyst')">② Deep Amethyst</button>
+  <button id="theme-cyber-teal" class="theme-btn" onclick="setTheme('cyber-teal')">③ Cyber Teal</button>
+  <button class="mode-toggle" onclick="toggleMode()" id="mode-btn">☀ Light Mode</button>
+</div>
+
+<!-- ===== THEME DESCRIPTION ===== -->
+<div id="theme-desc"></div>
+
+<!-- ===== PREVIEW ===== -->
+<div id="preview" data-theme="obsidian-gold" data-mode="dark">
+  <div class="glow-blob-1"></div>
+  <div class="glow-blob-2"></div>
+
+  <div class="preview-inner">
+    <!-- Scroll progress -->
+    <div id="scroll-bar"><div id="scroll-fill"></div></div>
+
+    <!-- NAVBAR -->
+    <nav class="p-nav">
+      <div class="p-nav-logo">KANY<span>.DEV</span></div>
+      <div class="p-nav-links">
+        <a class="p-nav-link">Expertise</a>
+        <a class="p-nav-link">Services</a>
+        <a class="p-nav-link">Projets</a>
+        <a class="p-nav-link">Contact</a>
+      </div>
+      <button class="p-nav-cta">Démarrer →</button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="p-hero">
+      <div class="p-hero-eyebrow">
+        <div class="p-hero-line"></div>
+        <span class="p-hero-label">Kany Dev · AI &amp; Web Solutions</span>
+      </div>
+      <h1 class="p-hero-heading">DESIGNER<br/>DE <em>SOLUTIONS</em></h1>
+      <div class="p-hero-content">
+        <div class="p-hero-desc">
+          <p>Architecture de solutions <em>Antigravité</em>.<br/>Fusion de l'IA, du SEO et du code haute performance.</p>
+          <div class="p-hero-tags">
+            <span class="p-hero-tag">◇ Web Development</span>
+            <span class="p-hero-tag">◈ SEO Strategy</span>
+            <span class="p-hero-tag">◉ AI Integration</span>
+          </div>
+        </div>
+        <button class="p-hero-cta">LANCER UN PROJET →</button>
+      </div>
+    </section>
+
+    <!-- SPECIALTIES -->
+    <section class="p-specialties">
+      <div class="p-section-header">
+        <h2 class="p-section-heading">DOMAINES D'<em>EXPERTISE</em></h2>
+        <div class="p-section-line"></div>
+      </div>
+      <div class="p-cards">
+        <div class="p-card">
+          <div class="p-card-icon">◈</div>
+          <h3>Développement</h3>
+          <p>Création d'architectures robustes avec React et TypeScript. Performance et scalabilité au cœur du code.</p>
+          <div class="p-card-tags">
+            <div class="p-card-tag">Fullstack</div>
+            <div class="p-card-tag">Clean Code</div>
+            <div class="p-card-tag">React</div>
+          </div>
+        </div>
+        <div class="p-card">
+          <div class="p-card-icon">◉</div>
+          <h3>Optimisation SEO</h3>
+          <p>Dominez les classements. Stratégies techniques pointues pour une visibilité organique maximale.</p>
+          <div class="p-card-tags">
+            <div class="p-card-tag">Core Web Vitals</div>
+            <div class="p-card-tag">Semantics</div>
+            <div class="p-card-tag">Speed</div>
+          </div>
+        </div>
+        <div class="p-card">
+          <div class="p-card-icon">◇</div>
+          <h3>Intégration d'IA</h3>
+          <p>Automatisation et intelligence. Intégration de LLMs et d'agents personnalisés.</p>
+          <div class="p-card-tags">
+            <div class="p-card-tag">LLMs</div>
+            <div class="p-card-tag">Automation</div>
+            <div class="p-card-tag">Agents</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="p-projects">
+      <div class="p-section-header">
+        <h2 class="p-section-heading">PROJETS <em>SÉLECTIONNÉS</em></h2>
+        <div class="p-section-line"></div>
+      </div>
+      <div class="p-project-grid">
+        <div class="p-project-card">
+          <img class="p-project-img" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800" alt="AI Agent Orchestrator" />
+          <div class="p-project-info">
+            <span class="p-project-cat">Custom AI</span>
+            <div class="p-project-title">AI Agent Orchestrator</div>
+            <div class="p-project-tags">
+              <span class="p-project-tag">#React</span>
+              <span class="p-project-tag">#Python</span>
+              <span class="p-project-tag">#OpenAI</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-project-card">
+          <img class="p-project-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="SEO Analytics Dashboard" />
+          <div class="p-project-info">
+            <span class="p-project-cat">SEO Optimization</span>
+            <div class="p-project-title">SEO Analytics Dashboard</div>
+            <div class="p-project-tags">
+              <span class="p-project-tag">#Next.js</span>
+              <span class="p-project-tag">#PostgreSQL</span>
+              <span class="p-project-tag">#Tailwind</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <div class="p-contact">
+      <div class="p-contact-inner">
+        <div>
+          <h2>PRÊT À<br/><em>PROPULSER</em><br/>VOTRE VISION ?</h2>
+          <p class="p-contact-desc">Qu'il s'agisse de code, de SEO ou d'IA, je suis là pour transformer vos défis techniques en avantages compétitifs.</p>
+        </div>
+        <div class="p-contact-cta">
+          <a class="p-email-btn" href="mailto:hello@kanydev.ai">hello@kanydev.ai</a>
+          <div class="p-socials">
+            <div class="p-social" aria-label="Site web">🌐</div>
+            <div class="p-social" aria-label="Réseaux IA">◉</div>
+            <div class="p-social" aria-label="Email">✉</div>
+          </div>
+        </div>
+      </div>
+      <div class="p-ribbon">
+        <div class="p-ribbon-inner">
+          <span class="p-ribbon-text">React Engineering • SEO Dominance • Custom AI Agents •</span>
+          <span class="p-ribbon-text">React Engineering • SEO Dominance • Custom AI Agents •</span>
+          <span class="p-ribbon-text">React Engineering • SEO Dominance • Custom AI Agents •</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="p-footer">
+      <p>© 2026 Kany Dev — Built with React &amp; AI</p>
+    </footer>
+
+  </div><!-- /preview-inner -->
+</div><!-- /preview -->
+
+<script>
+  const themes = {
+    'obsidian-gold': {
+      name: '① Obsidian Gold',
+      sub: 'Luxurious & Premium',
+      description: 'Rich antique gold on a near-black void with violet surface depth. Inspired by midnight luxury — haute couture editorial, old-money digital. Chakra Petch headlines bring futuristic authority, Work Sans grounds it in warmth.',
+      colors: [
+        { hex: '#08070D', label: 'BG' },
+        { hex: '#110F1E', label: 'Surface' },
+        { hex: '#C8A94A', label: 'Gold' },
+        { hex: '#9962D0', label: 'Violet' },
+        { hex: '#F0EBF8', label: 'Text' },
+        { hex: '#8B8499', label: 'Muted' },
+      ],
+      heading: 'Chakra Petch',
+      body: 'Work Sans',
+      for: 'For a portfolio with maximum premium prestige — think Dior meets GPT-4.'
+    },
+    'deep-amethyst': {
+      name: '② Deep Amethyst',
+      sub: 'Luxurious & Premium · Violet Focus',
+      description: "Electric amethyst on void black, accented with warm gold. Mystical, royal, creative. Epilogue\u2019s editorial weight pairs with Inter\u2019s interface clarity \u2014 a combination that feels like both art gallery and control room.",
+      colors: [
+        { hex: '#070510', label: 'BG' },
+        { hex: '#0F0C1C', label: 'Surface' },
+        { hex: '#9B5DE5', label: 'Violet' },
+        { hex: '#D4A017', label: 'Gold' },
+        { hex: '#EDE8F5', label: 'Text' },
+        { hex: '#7A7089', label: 'Muted' },
+      ],
+      heading: 'Epilogue',
+      body: 'Inter',
+      for: 'For a portfolio that signals creative sovereignty and tech mastery simultaneously.'
+    },
+    'cyber-teal': {
+      name: '③ Cyber Teal',
+      sub: 'Modern & Tech · Futuristic',
+      description: "Electric cyan on deep navy-black. Pure tech energy \u2014 data centers, neural networks, the bleeding edge. Manrope\u2019s geometric precision with Source Sans\u00a03\u2019s clean readability creates a high-fidelity interface feel.",
+      colors: [
+        { hex: '#03070F', label: 'BG' },
+        { hex: '#070E1A', label: 'Surface' },
+        { hex: '#00CCCC', label: 'Cyan' },
+        { hex: '#8000FF', label: 'Violet' },
+        { hex: '#D8EEF8', label: 'Text' },
+        { hex: '#5E8499', label: 'Muted' },
+      ],
+      heading: 'Manrope',
+      body: 'Source Sans 3',
+      for: 'For a portfolio that signals cutting-edge AI/tech expertise with matrix-level energy.'
+    }
+  };
+
+  let currentTheme = 'obsidian-gold';
+  let currentMode = 'dark';
+
+  function setTheme(t) {
+    currentTheme = t;
+    const preview = document.getElementById('preview');
+    preview.setAttribute('data-theme', t);
+    preview.setAttribute('data-mode', currentMode);
+
+    // Update buttons
+    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('theme-' + t).classList.add('active');
+
+    updateDesc();
+  }
+
+  function toggleMode() {
+    currentMode = currentMode === 'dark' ? 'light' : 'dark';
+    const preview = document.getElementById('preview');
+    preview.setAttribute('data-mode', currentMode);
+    document.getElementById('mode-btn').textContent = currentMode === 'dark' ? '☀ Light Mode' : '🌑 Dark Mode';
+  }
+
+  function updateDesc() {
+    const t = themes[currentTheme];
+    const colorSwatches = t.colors.map(c => `
+      <div class="swatch-group">
+        <div class="swatch" style="background:${c.hex};" title="${c.hex}"></div>
+        <div class="swatch-label">${c.label}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('theme-desc').innerHTML = `
+      <div class="desc-block">
+        <div class="desc-title">${t.name}</div>
+        <div class="desc-sub">${t.sub}</div>
+        <div class="desc-text">${t.description}</div>
+      </div>
+      <div class="desc-block">
+        <div class="desc-sub" style="margin-bottom:6px;">Palette</div>
+        <div class="palette-row">${colorSwatches}</div>
+      </div>
+      <div class="desc-block">
+        <div class="desc-sub" style="margin-bottom:6px;">Typography</div>
+        <div class="font-heading-sample" style="font-family:${t.heading},sans-serif;color:#ccc;">${t.heading}</div>
+        <div class="font-body-sample" style="font-family:${t.body},sans-serif;">${t.body} — body text, labels, descriptions</div>
+        <div class="font-sample" style="margin-top:8px;color:#777;">${t.for}</div>
+      </div>
+    `;
+  }
+
+  // Fake scroll indicator
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    document.getElementById('scroll-fill').style.width = (scrolled * 100) + '%';
+  });
+
+  updateDesc();
+</script>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wireframe — Kany Dev Redesign Suggestion</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+      background: #f5f5f5;
+      color: #111;
+      padding: 24px;
+    }
+    .page-header {
+      text-align: center;
+      padding: 20px;
+      margin-bottom: 32px;
+      border: 2px dashed #999;
+      background: #fff;
+    }
+    .page-header h1 { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; }
+    .page-header p { font-family: Arial, sans-serif; font-size: 13px; color: #555; margin-top: 6px; }
+
+    .legend {
+      display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 28px;
+      font-family: Arial, sans-serif; font-size: 12px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .badge-reuse { background: #4CAF50; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; font-size: 11px; }
+    .badge-new { background: #FF9800; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; font-size: 11px; }
+    .badge-fix { background: #E53935; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold; font-size: 11px; }
+
+    .wireframe {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border: 2px solid #333;
+    }
+
+    .section-label {
+      font-family: Arial, sans-serif; font-size: 10px; font-weight: bold;
+      letter-spacing: 2px; text-transform: uppercase; color: #999;
+      padding: 4px 12px; background: #f0f0f0; border-bottom: 1px dashed #ccc;
+    }
+
+    /* Component wrapper */
+    .cmp { position: relative; }
+    .cmp-badge {
+      position: absolute; top: 4px; right: 4px;
+      padding: 2px 6px; border-radius: 3px;
+      font-size: 10px; font-family: Arial, sans-serif; font-weight: bold;
+      z-index: 10; white-space: nowrap;
+    }
+    .cmp-badge.reuse { background: #4CAF50; color: white; }
+    .cmp-badge.new { background: #FF9800; color: white; }
+    .cmp-badge.fix { background: #E53935; color: white; }
+
+    /* Navbar */
+    .navbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; border-bottom: 2px solid #ccc;
+      background: #fff;
+    }
+    .navbar-logo { font-size: 18px; font-weight: bold; }
+    .navbar-logo span { text-decoration: underline; }
+    .navbar-links { display: flex; gap: 24px; font-size: 13px; }
+    .navbar-links a { text-decoration: underline; color: #333; }
+    .navbar-cta {
+      background: #ccc; border: 2px solid #333; padding: 6px 16px;
+      font-size: 12px; font-weight: bold;
+    }
+    .navbar-hamburger { display: none; }
+
+    /* Mobile Navbar indicator */
+    .mobile-note {
+      background: #fff8e1; border: 1px solid #ffd54f; padding: 10px 16px;
+      font-family: Arial, sans-serif; font-size: 12px; color: #7B5700;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 60px 32px 48px;
+      border-bottom: 1px dashed #ccc;
+    }
+    .hero-eyebrow {
+      display: flex; gap: 8px; align-items: center; margin-bottom: 24px;
+    }
+    .eyebrow-line { width: 48px; height: 3px; background: #999; display: inline-block; }
+    .eyebrow-text { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #777; }
+    .hero-heading { font-size: 72px; font-weight: bold; line-height: 0.9; margin-bottom: 36px; text-transform: uppercase; }
+    .hero-heading em { text-decoration: underline; font-style: italic; }
+    .hero-content { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+    .hero-desc { max-width: 400px; }
+    .hero-desc p { font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 16px; }
+    .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0; }
+    .tag { border: 1px solid #999; padding: 6px 12px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #666; }
+    .hero-cta-area { flex-shrink: 0; }
+    .btn-brutal {
+      background: #ccc; color: #111; font-weight: bold; font-size: 16px;
+      border: 3px solid #333; box-shadow: 5px 5px 0 #333;
+      padding: 18px 36px; display: inline-flex; align-items: center; gap: 8px;
+      text-transform: uppercase; cursor: pointer;
+    }
+
+    /* Mobile Hero panel */
+    .mobile-panel {
+      border: 2px dashed #bbb; padding: 16px; margin: 16px 24px;
+      background: #fafafa;
+    }
+    .mobile-panel-label { font-family: Arial, sans-serif; font-size: 10px; color: #999; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .mobile-hero-heading { font-size: 36px; font-weight: bold; text-transform: uppercase; line-height: 0.95; margin-bottom: 16px; }
+    .mobile-hero-heading em { text-decoration: underline; font-style: italic; }
+    .mobile-btn { background: #ccc; border: 2px solid #333; box-shadow: 3px 3px 0 #333; padding: 12px 24px; font-size: 13px; font-weight: bold; text-transform: uppercase; display: inline-block; margin-top: 12px; }
+    .mobile-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .mobile-tag { border: 1px solid #bbb; padding: 4px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+
+    /* Specialties */
+    .specialties { padding: 48px 32px; border-bottom: 1px dashed #ccc; }
+    .section-heading { font-size: 36px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; }
+    .section-heading em { text-decoration: underline; font-style: italic; }
+    .underline-accent { width: 80px; height: 3px; background: #ccc; margin-bottom: 32px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card {
+      border: 2px solid #ccc; padding: 28px; background: #fafafa;
+      position: relative; min-height: 200px;
+    }
+    .card-icon { width: 40px; height: 40px; background: #ddd; border: 1px solid #bbb; border-radius: 8px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .card h3 { font-size: 18px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; }
+    .card p { font-size: 12px; color: #666; line-height: 1.5; margin-bottom: 16px; }
+    .card-tags { display: flex; flex-direction: column; gap: 6px; margin-top: auto; }
+    .card-tag { font-size: 10px; letter-spacing: 1px; color: #999; display: flex; gap: 4px; align-items: center; }
+    .card-tag::before { content: '⚡'; font-size: 9px; }
+
+    /* AI Terminal */
+    .terminal-section { padding: 48px 32px; border-bottom: 1px dashed #ccc; }
+    .terminal-window { max-width: 720px; margin: 0 auto; border: 2px solid #333; }
+    .terminal-bar {
+      background: #ddd; border-bottom: 2px solid #333; padding: 8px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .terminal-dots { display: flex; gap: 6px; }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; background: #bbb; border: 1px solid #999; }
+    .terminal-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-family: Arial, sans-serif; }
+    .terminal-body { padding: 20px; background: #fff; font-family: monospace; font-size: 12px; color: #333; height: 200px; overflow: hidden; }
+    .terminal-line { margin-bottom: 4px; color: #666; }
+    .terminal-prompt { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+    .terminal-input { border: none; border-bottom: 1px solid #ccc; flex: 1; font-family: monospace; font-size: 12px; outline: none; }
+
+    /* Projects — Horizontal Scroll Panel */
+    .projects-section { border-bottom: 1px dashed #ccc; }
+    .horizontal-note { 
+      background: #fff3e0; border: 1px solid #ffcc80; padding: 10px 32px; 
+      font-family: Arial, sans-serif; font-size: 12px; color: #7B5700;
+    }
+    .project-slides { display: flex; overflow-x: auto; padding: 0; }
+    .slide-intro { min-width: 50%; padding: 48px 32px; border-right: 1px dashed #ccc; }
+    .slide-intro h2 { font-size: 48px; font-weight: bold; text-transform: uppercase; line-height: 0.9; margin-bottom: 16px; }
+    .slide-intro h2 em { text-decoration: underline; font-style: italic; }
+    .slide-intro p { font-size: 14px; color: #666; max-width: 400px; }
+    .project-card { min-width: 50%; padding: 32px; border-right: 1px dashed #ccc; display: flex; gap: 24px; align-items: center; }
+    .project-img { width: 220px; height: 140px; background: #ddd; border: 2px solid #999; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; font-size: 11px; color: #999; }
+    .project-info h4 { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 6px; }
+    .project-info h3 { font-size: 24px; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
+    .project-info p { font-size: 12px; color: #666; line-height: 1.5; margin-bottom: 14px; }
+    .project-btns { display: flex; gap: 10px; }
+    .project-btn-primary { border: 2px solid #333; box-shadow: 3px 3px 0 #333; background: #ccc; padding: 8px 16px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+    .project-btn-secondary { border: 1px solid #ccc; padding: 8px 16px; font-size: 11px; color: #666; text-transform: uppercase; }
+
+    /* Mobile Projects Note */
+    .mobile-projects { padding: 24px 32px; background: #fafafa; }
+    .mobile-projects-label { font-family: Arial, sans-serif; font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .mobile-project-list { display: flex; flex-direction: column; gap: 12px; }
+    .mobile-project-item { border: 1px solid #ccc; display: flex; gap: 12px; align-items: center; padding: 12px; background: white; }
+    .mobile-project-thumb { width: 60px; height: 48px; background: #ddd; border: 1px solid #bbb; flex-shrink: 0; }
+    .mobile-project-text h4 { font-size: 10px; color: #999; text-transform: uppercase; }
+    .mobile-project-text h3 { font-size: 14px; font-weight: bold; }
+
+    /* Contact CTA */
+    .contact-section { padding: 48px 32px; border-bottom: 1px dashed #ccc; }
+    .contact-glass { border: 2px solid #ccc; overflow: hidden; }
+    .contact-inner { display: flex; gap: 48px; align-items: center; padding: 48px; flex-wrap: wrap; }
+    .contact-left { flex: 1; min-width: 240px; }
+    .contact-left h2 { font-size: 48px; font-weight: bold; text-transform: uppercase; line-height: 0.9; margin-bottom: 16px; }
+    .contact-left h2 em { text-decoration: underline; font-style: italic; }
+    .contact-left p { font-size: 13px; color: #666; max-width: 340px; }
+    .contact-right { flex-shrink: 0; }
+    .email-cta { border: 3px solid #333; box-shadow: 5px 5px 0 #333; background: #ccc; padding: 16px 28px; font-size: 18px; display: block; margin-bottom: 20px; font-weight: bold; }
+    .social-links { display: flex; gap: 10px; }
+    .social-link {
+      width: 44px; height: 44px; border: 1px solid #ccc;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; position: relative;
+    }
+    /* accessibility note callout */
+    .a11y-callout { background: #ffebee; border: 1px solid #ef9a9a; padding: 6px 10px; font-family: Arial, sans-serif; font-size: 10px; color: #b71c1c; margin-top: 4px; }
+    .contact-ribbon { background: #ddd; border-top: 2px solid #333; border-bottom: 2px solid #333; padding: 12px 0; overflow: hidden; }
+    .ribbon-text { font-size: 16px; font-weight: bold; text-transform: uppercase; font-style: italic; letter-spacing: 4px; white-space: nowrap; color: #333; padding: 0 24px; }
+
+    /* Footer */
+    .footer { padding: 40px 32px; text-align: center; border-top: 1px solid #ccc; }
+    .footer p { font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 3px; }
+    .footer-note { font-family: Arial, sans-serif; font-size: 10px; color: #E53935; margin-top: 6px; }
+
+    /* Annotation boxes */
+    .annotation {
+      border: 1px dashed #E53935; background: #fff8f8; padding: 6px 10px;
+      font-family: Arial, sans-serif; font-size: 11px; color: #c62828;
+      margin: 4px 0; display: inline-flex; align-items: flex-start; gap: 4px;
+    }
+    .annotation::before { content: '⚠'; flex-shrink: 0; }
+    .annotation-ok { border-color: #43A047; background: #f1f8e9; color: #2e7d32; }
+    .annotation-ok::before { content: '✓'; }
+
+    /* Responsive annotations section */
+    .responsive-panel {
+      padding: 32px; background: #fafafa; border-bottom: 1px dashed #ccc;
+    }
+    .responsive-panel h2 { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; margin-bottom: 20px; }
+    .breakpoints-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .breakpoint-card { border: 2px solid #ccc; background: white; }
+    .breakpoint-header { background: #ddd; border-bottom: 1px solid #ccc; padding: 8px 12px; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; }
+    .breakpoint-body { padding: 12px; font-family: Arial, sans-serif; font-size: 11px; color: #555; line-height: 1.6; }
+    .breakpoint-body ul { padding-left: 16px; }
+    .breakpoint-body li { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Wireframe — Kany Dev · Homepage Redesign Suggestion</h1>
+  <p>Mid-fidelity redesign addressing the 24 issues found in the design review · Balsamiq-style · Grayscale only</p>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="badge-reuse">[REUSE]</span> Existing component (reused as-is or extended)</div>
+  <div class="legend-item"><span class="badge-new">[NEW]</span> New component to create</div>
+  <div class="legend-item"><span class="badge-fix">[FIX]</span> Existing component with critical bug fix</div>
+</div>
+
+<div class="wireframe">
+  <div class="section-label">DESKTOP NAVBAR · Fixed · z-index: 100</div>
+
+  <!-- NAVBAR -->
+  <!-- REUSABLE: Navbar from src/components/Navbar.tsx (with aria-current fix + hamburger added) -->
+  <div class="navbar cmp" style="position:relative;">
+    <span class="cmp-badge fix" title="src/components/Navbar.tsx — add aria-current, fix MENU→hamburger">[FIX] Navbar</span>
+    <div class="navbar-logo">KANY<span>.DEV</span></div>
+    <nav class="navbar-links" aria-label="Navigation principale">
+      <a href="#" aria-current="page">Expertise</a>
+      <a href="#">Services</a>
+      <a href="#">Projets</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <!-- REUSABLE: ThemeToggle from src/components/ThemeToggle.tsx (+ aria-live fix) -->
+      <div class="cmp" style="position:relative;display:inline-block;">
+        <span class="cmp-badge fix" title="src/components/ThemeToggle.tsx — add sr-only status text">[FIX] ThemeToggle</span>
+        <div style="width:36px;height:36px;border-radius:50%;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;background:#f5f5f5;">☀</div>
+      </div>
+      <!-- NEW: MobileMenuButton — hamburger icon, opens slide-in nav panel -->
+      <div class="cmp" style="display:none;position:relative;">
+        <span class="cmp-badge new" title="src/components/MobileMenu.tsx — new hamburger + slide-in panel">[NEW] MobileMenu</span>
+        <div class="navbar-hamburger">☰</div>
+      </div>
+      <div class="navbar-cta">DÉMARRER UN PROJET →</div>
+    </div>
+  </div>
+
+  <div class="mobile-note">
+    📱 <strong>Mobile (≤768px)</strong>: Nav links are hidden → replaced by hamburger button (top-right) that opens a full-screen slide-in menu panel. The "MENU" CTA label is renamed to "PROJET" or a hamburger icon.
+  </div>
+
+  <div class="section-label">HERO SECTION · /  (Home)</div>
+
+  <!-- HERO DESKTOP -->
+  <!-- REUSABLE: Hero from src/components/Hero.tsx -->
+  <div class="hero cmp">
+    <span class="cmp-badge fix" title="src/components/Hero.tsx — add prefers-reduced-motion guard">[FIX] Hero</span>
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Kany Dev · AI &amp; Web Solutions</span>
+    </div>
+    <h1 class="hero-heading">DESIGNER<br/>DE <em>SOLUTIONS</em></h1>
+    <div class="hero-content">
+      <div class="hero-desc">
+        <p>Architecture de solutions <em>Antigravité</em>. Fusion de l'IA, du SEO et du code haute performance.</p>
+        <div class="hero-tags">
+          <span class="tag">&lt;&gt; Web Development</span>
+          <span class="tag">🌐 SEO Strategy</span>
+          <span class="tag">⚙ AI Integration</span>
+        </div>
+      </div>
+      <div class="hero-cta-area">
+        <!-- REUSABLE: Magnetic from src/components/Magnetic.tsx -->
+        <div class="cmp" style="position:relative;display:inline-block;">
+          <span class="cmp-badge reuse" title="src/components/Magnetic.tsx">[REUSE] Magnetic</span>
+          <div class="btn-brutal">LANCER UN PROJET →</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:24px;">
+      <div class="annotation">Missing CSS class `vertical-text` — add `writing-mode: vertical-rl` or use Tailwind `[writing-mode:vertical-rl]`</div>
+    </div>
+  </div>
+
+  <!-- MOBILE HERO -->
+  <div class="mobile-panel">
+    <div class="mobile-panel-label">📱 Mobile layout (390px) — Hero</div>
+    <div class="mobile-hero-heading">DESIGNER<br/>DE <em>SOLUTIONS</em></div>
+    <p style="font-size:12px;color:#666;margin-bottom:12px;line-height:1.5;">Architecture de solutions Antigravité. Fusion de l'IA, du SEO et du code haute performance.</p>
+    <div class="mobile-tags">
+      <span class="mobile-tag">&lt;&gt; Web Dev</span>
+      <span class="mobile-tag">🌐 SEO</span>
+      <span class="mobile-tag">⚙ AI</span>
+    </div>
+    <div class="annotation">Hero text capped at `text-5xl` (48px) on mobile to prevent overflow. Was `text-7xl` (112px).</div>
+    <div class="mobile-btn">LANCER UN PROJET →</div>
+  </div>
+
+  <div class="section-label">SPECIALTIES SECTION</div>
+
+  <!-- SPECIALTIES -->
+  <!-- REUSABLE: Specialties from src/components/Specialties.tsx -->
+  <div class="specialties cmp">
+    <span class="cmp-badge reuse" title="src/components/Specialties.tsx">[REUSE] Specialties</span>
+    <h2 class="section-heading">DOMAINES D'<em>EXPERTISE</em></h2>
+    <div class="underline-accent"></div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <h3>Développement</h3>
+        <p>Création d'architectures robustes avec React et TypeScript. Performance et scalabilité au cœur.</p>
+        <div class="card-tags">
+          <div class="card-tag">Fullstack</div>
+          <div class="card-tag">Clean Code</div>
+          <div class="card-tag">React</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3>Optimisation SEO</h3>
+        <p>Dominez les classements. Stratégies techniques pointues pour une visibilité organique maximale.</p>
+        <div class="card-tags">
+          <div class="card-tag">Core Web Vitals</div>
+          <div class="card-tag">Semantics</div>
+          <div class="card-tag">Speed</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <h3>Intégration d'IA</h3>
+        <p>Automatisation et intelligence. Intégration de LLMs et d'agents personnalisés pour booster vos workflows.</p>
+        <div class="card-tags">
+          <div class="card-tag">LLMs</div>
+          <div class="card-tag">Automation</div>
+          <div class="card-tag">Agents</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">AI TERMINAL SECTION</div>
+
+  <!-- AI TERMINAL -->
+  <!-- REUSABLE: AITerminal from src/components/AITerminal.tsx -->
+  <div class="terminal-section cmp">
+    <span class="cmp-badge reuse" title="src/components/AITerminal.tsx">[REUSE] AITerminal</span>
+    <div class="terminal-window">
+      <div class="terminal-bar">
+        <div class="terminal-dots">
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot" style="background:#ccc;"></div>
+        </div>
+        <div class="terminal-title">System Interface</div>
+        <div></div>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line">Neural Engine v4.0.2 initialized...</div>
+        <div class="terminal-line">Scanning security protocols...</div>
+        <div class="terminal-line">Identity verified: KANY_DEV</div>
+        <div class="terminal-line">Ready for transmission.</div>
+        <div class="terminal-prompt">
+          <span>$</span>
+          <input class="terminal-input" type="text" placeholder="Type 'help'..." />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">PROJECTS — HORIZONTAL SCROLL SECTION</div>
+
+  <!-- PROJECTS -->
+  <div class="projects-section cmp">
+    <span class="cmp-badge fix" title="src/components/Projects.tsx — add mobile vertical fallback">[FIX] Projects</span>
+    <div class="horizontal-note">
+      🖥 <strong>Desktop</strong>: Horizontal GSAP scroll pinning (existing behaviour preserved) &nbsp;|&nbsp;
+      📱 <strong>Mobile</strong>: Horizontal scroll replaced with a vertical card list (see below). Add `@media (max-width: 768px)` CSS rule to disable GSAP pin and switch to vertical layout.
+    </div>
+
+    <!-- Desktop horizontal slides (truncated preview) -->
+    <div class="project-slides">
+      <div class="slide-intro">
+        <span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#999;display:block;margin-bottom:16px;text-decoration:underline;">CASE STUDIES</span>
+        <h2>PROJETS<br/><em>SÉLECTIONNÉS</em></h2>
+        <p style="margin-top:16px;">Une exploration de nos dernières transmissions neurales. Faites défiler pour entrer dans le moteur.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-img">[Image: 460×280]</div>
+        <div class="project-info">
+          <h4>Custom AI</h4>
+          <h3>AI AGENT<br/>ORCHESTRATOR</h3>
+          <p>Intégration poussée de solutions IA avec une architecture SEO robuste...</p>
+          <div class="project-btns">
+            <div class="project-btn-primary">VOIR LE CASE STUDY →</div>
+            <div class="project-btn-secondary">🌐 Live</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" style="opacity:0.4;">
+        <div class="project-img">[Image: 460×280]</div>
+        <div class="project-info">
+          <h4>SEO Optimization</h4>
+          <h3>SEO ANALYTICS<br/>DASHBOARD</h3>
+          <p>...</p>
+          <div class="project-btns">
+            <div class="project-btn-primary">VOIR LE CASE STUDY →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile vertical list -->
+    <div class="mobile-projects">
+      <div class="mobile-projects-label">📱 Mobile layout — Projects (vertical scroll, no GSAP pin)</div>
+      <div class="mobile-project-list">
+        <div class="mobile-project-item">
+          <div class="mobile-project-thumb"></div>
+          <div class="mobile-project-text">
+            <h4>Custom AI</h4>
+            <h3>AI Agent Orchestrator</h3>
+          </div>
+        </div>
+        <div class="mobile-project-item">
+          <div class="mobile-project-thumb"></div>
+          <div class="mobile-project-text">
+            <h4>SEO</h4>
+            <h3>SEO Analytics Dashboard</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">CONTACT CTA SECTION</div>
+
+  <!-- CONTACT -->
+  <!-- REUSABLE: Contact from src/components/Contact.tsx -->
+  <div class="contact-section cmp">
+    <span class="cmp-badge fix" title="src/components/Contact.tsx — fix aria-labels, fix email, fix text-white tokens">[FIX] Contact</span>
+    <div class="contact-glass">
+      <div class="contact-inner">
+        <div class="contact-left">
+          <h2>PRÊT À<br/><em>PROPULSER</em><br/>VOTRE VISION ?</h2>
+          <p style="margin-top:16px;">Qu'il s'agisse de code, de SEO ou d'IA, je suis là pour transformer vos défis techniques en avantages compétitifs.</p>
+          <div class="annotation" style="margin-top:10px;">Replace `text-white/50` → `text-muted` token for light theme compatibility</div>
+        </div>
+        <div class="contact-right">
+          <div class="email-cta">hello@kanydev.ai</div>
+          <div class="annotation" style="margin-bottom:10px;">Fix: was `hello@kanydev.com` (inconsistent with ContactPage). Standardize to `.ai`</div>
+          <div class="social-links">
+            <!-- Each social link now requires aria-label -->
+            <div class="cmp" style="position:relative;">
+              <div class="social-link" title="aria-label='Site web'">🌐</div>
+            </div>
+            <div class="cmp" style="position:relative;">
+              <div class="social-link" title="aria-label='Réseaux IA'">⚙</div>
+            </div>
+            <div class="cmp" style="position:relative;">
+              <div class="social-link" title="aria-label='Email'">✉</div>
+            </div>
+          </div>
+          <div class="a11y-callout">All 3 icon-only links must have aria-label (confirmed WCAG violation)</div>
+        </div>
+      </div>
+      <div class="contact-ribbon">
+        <div class="ribbon-text">React Engineering • SEO Dominance • Custom AI Agents • React Engineering • SEO Dominance •</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">FOOTER</div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>© 2026 Kany Dev — Built with React &amp; AI</p>
+    <div class="footer-note">⚠ Contrast fix needed: increase opacity from /40 to /60 (was 3.65:1, needs 4.5:1)</div>
+  </div>
+
+</div>
+
+<!-- RESPONSIVE BREAKPOINTS OVERVIEW -->
+<div class="responsive-panel" style="max-width:1200px;margin:32px auto 0;">
+  <h2>Responsive Breakpoint Strategy</h2>
+  <div class="breakpoints-grid">
+    <div class="breakpoint-card">
+      <div class="breakpoint-header">📱 Mobile · &lt;768px</div>
+      <div class="breakpoint-body">
+        <ul>
+          <li>Hamburger menu replaces nav links</li>
+          <li>Hero heading: <code>text-5xl</code> (48px cap)</li>
+          <li>Specialties: single column grid</li>
+          <li>Projects: vertical card list, no GSAP pin</li>
+          <li>Contact: stacked column layout</li>
+          <li>AITerminal: auto-height (remove `h-64`)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="breakpoint-card">
+      <div class="breakpoint-header">📋 Tablet · 768–1024px</div>
+      <div class="breakpoint-body">
+        <ul>
+          <li>Nav links visible (condensed)</li>
+          <li>Hero heading: <code>text-7xl</code> (72px)</li>
+          <li>Specialties: 2-column grid</li>
+          <li>Projects: 2-column vertical grid (no GSAP pin)</li>
+          <li>Contact: row layout</li>
+        </ul>
+      </div>
+    </div>
+    <div class="breakpoint-card">
+      <div class="breakpoint-header">🖥 Desktop · &gt;1024px</div>
+      <div class="breakpoint-body">
+        <ul>
+          <li>Full nav + Theme toggle + CTA</li>
+          <li>Hero heading: <code>text-[8rem]</code> (128px)</li>
+          <li>Specialties: 3-column grid</li>
+          <li>Projects: GSAP horizontal scroll pin</li>
+          <li>Custom cursor enabled</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW COMPONENT SUMMARY -->
+<div style="max-width:1200px;margin:24px auto 0;padding:24px;border:2px solid #FF9800;background:#fff8f0;font-family:Arial,sans-serif;">
+  <h2 style="font-size:14px;font-weight:bold;color:#E65100;margin-bottom:14px;">🆕 New Components Required</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:12px;">
+    <thead>
+      <tr style="background:#ffe0b2;">
+        <th style="text-align:left;padding:8px;border:1px solid #ffcc80;">Component</th>
+        <th style="text-align:left;padding:8px;border:1px solid #ffcc80;">Path</th>
+        <th style="text-align:left;padding:8px;border:1px solid #ffcc80;">Description</th>
+        <th style="text-align:left;padding:8px;border:1px solid #ffcc80;">Fixes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:8px;border:1px solid #ffcc80;"><strong>MobileMenu</strong></td>
+        <td style="padding:8px;border:1px solid #ffcc80;">src/components/MobileMenu.tsx</td>
+        <td style="padding:8px;border:1px solid #ffcc80;">Hamburger button + slide-in full-screen mobile nav panel. Contains all nav links and theme toggle.</td>
+        <td style="padding:8px;border:1px solid #ffcc80;">Issue #1 (Critical: no mobile nav)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="max-width:1200px;margin:16px auto 32px;padding:24px;border:2px solid #4CAF50;background:#f1f8e9;font-family:Arial,sans-serif;">
+  <h2 style="font-size:14px;font-weight:bold;color:#1B5E20;margin-bottom:14px;">🔧 Components Requiring Bug Fixes (Reuse with Modifications)</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:12px;">
+    <thead>
+      <tr style="background:#dcedc8;">
+        <th style="text-align:left;padding:8px;border:1px solid #aed581;">Component</th>
+        <th style="text-align:left;padding:8px;border:1px solid #aed581;">Key Changes</th>
+        <th style="text-align:left;padding:8px;border:1px solid #aed581;">Issue #</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#fff;">
+        <td style="padding:8px;border:1px solid #aed581;">Navbar.tsx</td>
+        <td style="padding:8px;border:1px solid #aed581;">Add `aria-current="page"` via `useLocation()`. Rename "MENU" button. Add MobileMenu integration.</td>
+        <td style="padding:8px;border:1px solid #aed581;">#1, #11, #12</td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid #aed581;">Hero.tsx</td>
+        <td style="padding:8px;border:1px solid #aed581;">Add `gsap.matchMedia()` for prefers-reduced-motion. Cap font size on mobile.</td>
+        <td style="padding:8px;border:1px solid #aed581;">#4, #9</td>
+      </tr>
+      <tr style="background:#fff;">
+        <td style="padding:8px;border:1px solid #aed581;">Contact.tsx</td>
+        <td style="padding:8px;border:1px solid #aed581;">Add `aria-label` to 3 icon links. Fix email to `hello@kanydev.ai`. Replace `text-white/50` → `text-muted`.</td>
+        <td style="padding:8px;border:1px solid #aed581;">#3, #7, #19</td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid #aed581;">ThemeToggle.tsx</td>
+        <td style="padding:8px;border:1px solid #aed581;">Add `aria-live="polite"` + `<span className="sr-only">` for mode announcement.</td>
+        <td style="padding:8px;border:1px solid #aed581;">#10</td>
+      </tr>
+      <tr style="background:#fff;">
+        <td style="padding:8px;border:1px solid #aed581;">Projects.tsx</td>
+        <td style="padding:8px;border:1px solid #aed581;">Disable GSAP pin on mobile, replace with vertical card list. Fix broken Unsplash image.</td>
+        <td style="padding:8px;border:1px solid #aed581;">#8, #17</td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid #aed581;">Scene3D.tsx</td>
+        <td style="padding:8px;border:1px solid #aed581;">Add `aria-hidden="true"` to the container div.</td>
+        <td style="padding:8px;border:1px solid #aed581;">#21</td>
+      </tr>
+      <tr style="background:#fff;">
+        <td style="padding:8px;border:1px solid #aed581;">About.tsx:18</td>
+        <td style="padding:8px;border:1px solid #aed581;">Remove markdown asterisks — use `<strong>Kany Dev</strong>` in JSX.</td>
+        <td style="padding:8px;border:1px solid #aed581;">#2</td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid #aed581;">App.tsx (footer)</td>
+        <td style="padding:8px;border:1px solid #aed581;">Increase footer text from `text-white/40` to `text-white/60` for WCAG AA contrast.</td>
+        <td style="padding:8px;border:1px solid #aed581;">#5</td>
+      </tr>
+      <tr style="background:#fff;">
+        <td style="padding:8px;border:1px solid #aed581;">ContactPage.tsx</td>
+        <td style="padding:8px;border:1px solid #aed581;">Replace `focus:outline-none` with `focus:ring-2 focus:ring-primary/60`. Add custom chevron SVG to select.</td>
+        <td style="padding:8px;border:1px solid #aed581;">#6, #20</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

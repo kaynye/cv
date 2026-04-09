@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Magnetic from '../components/Magnetic';
-import { Mail, MessageSquare, MapPin, Send } from 'lucide-react';
+import { Mail, MessageSquare, MapPin, Send, ChevronDown } from 'lucide-react';
 
 const ContactPage: React.FC = () => {
     return (
@@ -58,28 +58,51 @@ const ContactPage: React.FC = () => {
                     <form className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <label className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Nom Complet</label>
-                                <input type="text" className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-none focus:border-primary transition-colors text-main" placeholder="Kany D." />
+                                <label htmlFor="fullname" className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Nom Complet</label>
+                                <input
+                                    id="fullname"
+                                    type="text"
+                                    className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors text-main"
+                                    placeholder="Kany D."
+                                />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Email Professionnel</label>
-                                <input type="email" className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-none focus:border-primary transition-colors text-main" placeholder="contact@company.com" />
+                                <label htmlFor="email" className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Email Professionnel</label>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors text-main"
+                                    placeholder="contact@company.com"
+                                />
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Type de Projet</label>
-                            <select className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-none focus:border-primary transition-colors appearance-none text-main">
-                                <option>SEO Strategy & Audit</option>
-                                <option>Custom AI Integration</option>
-                                <option>High-End Web Development</option>
-                                <option>Full Suite (The Works)</option>
-                            </select>
+                            <label htmlFor="project-type" className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Type de Projet</label>
+                            <div className="relative">
+                                <select
+                                    id="project-type"
+                                    className="w-full bg-surface border border-border-subtle p-4 pr-10 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors appearance-none text-main"
+                                >
+                                    <option>SEO Strategy & Audit</option>
+                                    <option>Custom AI Integration</option>
+                                    <option>High-End Web Development</option>
+                                    <option>Full Suite (The Works)</option>
+                                </select>
+                                <ChevronDown
+                                    size={16}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
+                                />
+                            </div>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Votre Message</label>
-                            <textarea className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-none focus:border-primary transition-colors h-40 text-main" placeholder="Racontez-moi votre vision..."></textarea>
+                            <label htmlFor="message" className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Votre Message</label>
+                            <textarea
+                                id="message"
+                                className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors h-40 text-main"
+                                placeholder="Racontez-moi votre vision..."
+                            ></textarea>
                         </div>
 
                         <Magnetic>
