@@ -1,28 +1,71 @@
 @import "tailwindcss";
 
-@theme {
-  --color-primary: #FACC15;
-  --color-secondary: #000000;
-  --color-accent: #3B82F6;
+:root {
+  --app-bg-main: #000000;
+  --app-bg-surface: rgba(255, 255, 255, 0.05);
+  --app-text-main: #ffffff;
+  --app-text-muted: rgba(255, 255, 255, 0.6);
+  --app-border: rgba(255, 255, 255, 0.1);
+  --app-accent: #FACC15;
+  --app-accent-text: #000000;
+  --app-accent-muted: rgba(250, 204, 21, 0.1);
 
   --font-archivo: "Archivo", sans-serif;
   --font-space: "Space Grotesk", sans-serif;
 
-  --shadow-brutal: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-  --shadow-brutal-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal: 4px 4px 0px 0px var(--app-bg-main);
+  --shadow-brutal-lg: 8px 8px 0px 0px var(--app-bg-main);
+}
+
+.light-theme {
+  --app-bg-main: #f8fafc;
+  --app-bg-surface: rgba(0, 0, 0, 0.04);
+  --app-text-main: #0f172a;
+  --app-text-muted: #64748b;
+  --app-border: rgba(0, 0, 0, 0.08);
+  --app-accent: #facc15;
+  --app-accent-text: #000000;
+  --app-accent-muted: rgba(250, 204, 21, 0.2);
+}
+
+.light-theme .brutal-card {
+  border-color: var(--app-text-main);
+  box-shadow: var(--shadow-brutal);
+}
+
+.light-theme .btn-brutal {
+  border-color: var(--app-text-main);
+}
+
+@theme {
+  --color-primary: var(--app-accent);
+  --color-secondary: var(--app-bg-main);
+  --color-surface: var(--app-bg-surface);
+  --color-main: var(--app-text-main);
+  --color-text-main: var(--app-text-main);
+  --color-muted: var(--app-text-muted);
+  --color-text-muted: var(--app-text-muted);
+  --color-border-subtle: var(--app-border);
+
+  --font-archivo: var(--font-archivo);
+  --font-space: var(--font-space);
+
+  --shadow-brutal: var(--shadow-brutal);
+  --shadow-brutal-lg: var(--shadow-brutal-lg);
 }
 
 /* Global Styles */
 body {
-  background-color: black;
-  color: white;
+  background-color: var(--app-bg-main);
+  color: var(--app-text-main);
   font-family: var(--font-archivo);
   overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 ::selection {
-  background-color: var(--color-primary);
-  color: black;
+  background-color: var(--app-accent);
+  color: var(--app-accent-text);
 }
 
 h1,
@@ -36,18 +79,18 @@ h4 {
 
 /* Utilities */
 .glass {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--app-bg-surface);
   backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--app-border);
   border-radius: 1.5rem;
 }
 
 .glass-card {
   position: relative;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: var(--app-bg-surface);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--app-border);
   border-radius: 1.5rem;
   transition: all 0.5s;
 }
@@ -93,11 +136,11 @@ body::before {
   align-items: center;
   justify-content: center;
   padding: 1rem 2rem;
-  background-color: var(--color-primary);
-  color: black;
+  background-color: var(--app-accent);
+  color: var(--app-accent-text);
   font-weight: 700;
   text-transform: uppercase;
-  border: 2px solid black;
+  border: 2px solid var(--app-bg-main);
   box-shadow: var(--shadow-brutal);
   transition: all 0.2s;
   cursor: pointer;
@@ -115,7 +158,7 @@ body::before {
 
 .nav-link {
   position: relative;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--app-text-muted);
   transition: color 0.3s;
   font-family: var(--font-space);
   text-transform: uppercase;
@@ -124,7 +167,7 @@ body::before {
 }
 
 .nav-link:hover {
-  color: white;
+  color: var(--app-text-main);
 }
 
 .nav-link::after {

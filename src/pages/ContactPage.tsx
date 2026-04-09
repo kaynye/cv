@@ -21,17 +21,17 @@ const ContactPage: React.FC = () => {
                         <div className="flex items-start gap-6">
                             <div className="p-4 glass text-primary"><Mail size={24} /></div>
                             <div>
-                                <h4 className="text-sm font-space text-white/40 uppercase tracking-widest mb-1">Email</h4>
-                                <p className="text-xl">hello@kanydev.ai</p>
+                                <h4 className="text-sm font-space text-text-muted uppercase tracking-widest mb-1">Email</h4>
+                                <p className="text-xl text-main">hello@kanydev.ai</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-6">
                             <div className="p-4 glass text-accent"><MessageSquare size={24} /></div>
                             <div>
-                                <h4 className="text-sm font-space text-white/40 uppercase tracking-widest mb-1">Réseaux</h4>
-                                <div className="flex gap-4 text-xl">
+                                <h4 className="text-sm font-space text-text-muted uppercase tracking-widest mb-1">Réseaux</h4>
+                                <div className="flex gap-4 text-xl text-main">
                                     <a href="#" className="hover:text-primary transition-colors">LinkedIn</a>
-                                    <span className="text-white/20">/</span>
+                                    <span className="opacity-20">/</span>
                                     <a href="#" className="hover:text-primary transition-colors">Twitter</a>
                                 </div>
                             </div>
@@ -39,14 +39,14 @@ const ContactPage: React.FC = () => {
                         <div className="flex items-start gap-6">
                             <div className="p-4 glass text-purple-400"><MapPin size={24} /></div>
                             <div>
-                                <h4 className="text-sm font-space text-white/40 uppercase tracking-widest mb-1">Localisation</h4>
-                                <p className="text-xl">Paris, France (Full Remote)</p>
+                                <h4 className="text-sm font-space text-text-muted uppercase tracking-widest mb-1">Localisation</h4>
+                                <p className="text-xl text-main">Paris, France (Full Remote)</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="p-8 border-2 border-dashed border-white/10 rounded-2xl">
-                        <p className="text-white/40 text-sm italic">
+                    <div className="p-8 border-2 border-dashed border-border-subtle rounded-2xl">
+                        <p className="text-text-muted text-sm italic">
                             &gt; "Toutes les demandes reçoivent une réponse sous 24h ouvrées. <br />
                             Préparez-vous à décoller."
                         </p>
@@ -58,18 +58,18 @@ const ContactPage: React.FC = () => {
                     <form className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <label className="text-[10px] uppercase tracking-[.3em] font-space text-white/40">Nom Complet</label>
-                                <input type="text" className="w-full bg-white/5 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-primary transition-colors" placeholder="Kany D." />
+                                <label className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Nom Complet</label>
+                                <input type="text" className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-none focus:border-primary transition-colors text-main" placeholder="Kany D." />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-[10px] uppercase tracking-[.3em] font-space text-white/40">Email Professionnel</label>
-                                <input type="email" className="w-full bg-white/5 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-primary transition-colors" placeholder="contact@company.com" />
+                                <label className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Email Professionnel</label>
+                                <input type="email" className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-none focus:border-primary transition-colors text-main" placeholder="contact@company.com" />
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[.3em] font-space text-white/40">Type de Projet</label>
-                            <select className="w-full bg-white/5 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-primary transition-colors appearance-none">
+                            <label className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Type de Projet</label>
+                            <select className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-none focus:border-primary transition-colors appearance-none text-main">
                                 <option>SEO Strategy & Audit</option>
                                 <option>Custom AI Integration</option>
                                 <option>High-End Web Development</option>
@@ -78,8 +78,8 @@ const ContactPage: React.FC = () => {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[.3em] font-space text-white/40">Votre Message</label>
-                            <textarea className="w-full bg-white/5 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-primary transition-colors h-40" placeholder="Racontez-moi votre vision..."></textarea>
+                            <label className="text-[10px] uppercase tracking-[.3em] font-space text-text-muted">Votre Message</label>
+                            <textarea className="w-full bg-surface border border-border-subtle p-4 rounded-lg focus:outline-none focus:border-primary transition-colors h-40 text-main" placeholder="Racontez-moi votre vision..."></textarea>
                         </div>
 
                         <Magnetic>

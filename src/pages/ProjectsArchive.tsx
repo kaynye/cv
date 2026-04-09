@@ -57,33 +57,33 @@ const ProjectsArchive: React.FC = () => {
 
             <section className="mb-24 reveal">
                 <span className="text-primary font-space tracking-[.5em] text-xs mb-4 block underline underline-offset-8">PROJECT ARCHIVE 2024</span>
-                <h1 className="text-6xl md:text-9xl tracking-tighter leading-none mb-12">PORTFOLIO <br /><span className="text-primary italic">SÉLECTIONNÉ</span></h1>
+                <h1 className="text-6xl md:text-9xl tracking-tighter leading-none mb-12 text-main">PORTFOLIO <br /><span className="text-primary italic">SÉLECTIONNÉ</span></h1>
                 <div className="flex gap-4">
-                    <span className="px-4 py-1 border border-white/20 rounded-full text-xs uppercase tracking-widest text-white/60">All Work (06)</span>
-                    <span className="px-4 py-1 border border-white/20 rounded-full text-xs uppercase tracking-widest text-white/20 hover:text-white/60 cursor-pointer">AI Labs</span>
-                    <span className="px-4 py-1 border border-white/20 rounded-full text-xs uppercase tracking-widest text-white/20 hover:text-white/60 cursor-pointer">Web Dev</span>
+                    <span className="px-4 py-1 border border-border-subtle rounded-full text-xs uppercase tracking-widest text-text-muted">All Work (06)</span>
+                    <span className="px-4 py-1 border border-border-subtle rounded-full text-xs uppercase tracking-widest opacity-40 hover:opacity-100 cursor-pointer">AI Labs</span>
+                    <span className="px-4 py-1 border border-border-subtle rounded-full text-xs uppercase tracking-widest opacity-40 hover:opacity-100 cursor-pointer">Web Dev</span>
                 </div>
             </section>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {projects.map((p, i) => (
-                    <div key={i} className="reveal group bg-[#0a0a0a] border border-white/10 hover:border-primary/50 transition-colors duration-500 rounded-2xl overflow-hidden p-4">
+                    <div key={i} className="reveal group bg-surface border border-border-subtle hover:border-primary/50 transition-colors duration-500 rounded-2xl overflow-hidden p-4">
                         <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6">
                             <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                            <div className="absolute inset-0 bg-secondary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                                 <ArrowUpRight size={48} className="text-primary opacity-0 group-hover:opacity-100 transition-all duration-500 scale-50 group-hover:scale-100" />
                             </div>
                         </div>
                         <div className="flex justify-between items-start mb-4">
                             <div>
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-1 block">{p.category} — {p.year}</span>
-                                <h3 className="text-xl group-hover:text-primary transition-colors">{p.title}</h3>
+                                <span className="text-[10px] uppercase tracking-widest text-text-muted mb-1 block">{p.category} — {p.year}</span>
+                                <h3 className="text-xl text-main group-hover:text-primary transition-colors">{p.title}</h3>
                             </div>
-                            <Globe size={16} className="text-white/20" />
+                            <Globe size={16} className="opacity-20 text-main" />
                         </div>
                         <div className="flex flex-wrap gap-2">
                             {p.tags.map((t, j) => (
-                                <span key={j} className="text-[9px] uppercase tracking-widest bg-white/5 py-1 px-2 rounded opacity-60">#{t}</span>
+                                <span key={j} className="text-[9px] uppercase tracking-widest bg-primary/10 py-1 px-2 rounded text-primary font-bold">#{t}</span>
                             ))}
                         </div>
                     </div>

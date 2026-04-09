@@ -44,8 +44,8 @@ const AITerminal: React.FC = () => {
 
     return (
         <section className="py-20 reveal">
-            <div ref={terminalRef} className="max-w-3xl mx-auto bg-black/80 border border-primary/30 rounded-xl overflow-hidden shadow-2xl shadow-primary/10">
-                <div className="bg-primary/10 px-4 py-2 border-b border-primary/20 flex items-center justify-between">
+            <div ref={terminalRef} className="max-w-3xl mx-auto bg-surface backdrop-blur-xl border border-border-subtle rounded-xl overflow-hidden shadow-2xl shadow-primary/10">
+                <div className="bg-primary/10 px-4 py-2 border-b border-border-subtle flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Terminal size={14} className="text-primary" />
                         <span className="text-[10px] font-space text-primary uppercase tracking-widest">System Interface</span>
@@ -56,17 +56,17 @@ const AITerminal: React.FC = () => {
                         <div className="w-2 h-2 rounded-full bg-primary/40"></div>
                     </div>
                 </div>
-                <div className="p-6 h-64 overflow-y-auto font-mono text-xs text-primary/80 space-y-2">
+                <div className="p-6 h-64 overflow-y-auto font-mono text-xs text-text-muted space-y-2">
                     {history.map((line, i) => (
-                        <div key={i} className={line.startsWith('>') ? 'text-white' : ''}>{line}</div>
+                        <div key={i} className={line.startsWith('>') ? 'text-main font-bold' : ''}>{line}</div>
                     ))}
                     <form onSubmit={handleCommand} className="flex items-center gap-2">
-                        <span className="text-white"> $ </span>
+                        <span className="text-main font-bold"> $ </span>
                         <input
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            className="bg-transparent border-none outline-none flex-1 text-white"
+                            className="bg-transparent border-none outline-none flex-1 text-main"
                             placeholder="Type 'help'..."
                             autoFocus
                         />

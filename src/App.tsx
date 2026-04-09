@@ -73,11 +73,18 @@ const App: React.FC = () => {
       },
     });
 
-    if (isLoading) return;
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+      return;
+    } else {
+      document.body.style.overflow = 'unset';
+      document.body.className = document.body.className.replace('antigravity-scroll-lock', '');
+    }
 
     // Small timeout to allow content to render before GSAP scans for .reveal
     const timer = setTimeout(() => {
-      gsap.utils.toArray<HTMLElement>('.reveal').forEach((elem) => {
+      const elements = gsap.utils.toArray<HTMLElement>('.reveal');
+      elements.forEach((elem) => {
         gsap.to(elem, {
           scrollTrigger: {
             trigger: elem,
@@ -90,8 +97,18 @@ const App: React.FC = () => {
           ease: 'power3.out',
         });
       });
+
+      // Failsafe: if element is in viewport but still invisible, force it
+      setTimeout(() => {
+        elements.forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+            gsap.to(el, { opacity: 1, y: 0, duration: 0.5 });
+          }
+        });
+      }, 1000);
+
       ScrollTrigger.refresh();
-    }, 100);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [pathname, isLoading]);
@@ -105,7 +122,7 @@ const App: React.FC = () => {
       <Scene3D />
       <div
         ref={mainRef}
-        className={`relative min-h-screen bg-black overflow-hidden selection:bg-primary selection:text-black ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-1000'}`}
+        className={`relative min-h-screen selection:bg-primary selection:text-secondary ${isLoading ? 'opacity-0 overflow-hidden' : 'opacity-100 transition-opacity duration-1000'}`}
       >
         <div ref={cursorRef} className="custom-cursor hidden md:block" />
 
