@@ -1,60 +1,92 @@
 import React, { useEffect, useRef } from 'react';
+import Magnetic from './Magnetic';
 import { gsap } from 'gsap';
 import { ArrowRight, Code, Cpu, Globe } from 'lucide-react';
 
-const Hero: React.FC = () => {
-    const line1Ref = useRef(null);
-    const line2Ref = useRef(null);
+interface HeroProps {
+    isReady?: boolean;
+}
+
+const Hero: React.FC<HeroProps> = ({ isReady }) => {
+    const titleRef = useRef<HTMLHeadingElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.2 } });
+        if (!isReady) return;
 
-        // Use set to ensure initial state before animation
-        gsap.set([line1Ref.current, line2Ref.current], { y: 100, opacity: 0 });
+        const tl = gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.5 } });
 
-        tl.to(line1Ref.current, { y: 0, opacity: 1, delay: 0.5 })
-            .to(line2Ref.current, { y: 0, opacity: 1 }, '-=0.8');
-    }, []);
+        // Split text for animation
+        const titleText = titleRef.current?.innerText || "";
+        if (titleRef.current) {
+            titleRef.current.innerHTML = titleText
+                .split(" ")
+                .map(word => `<span class="inline-block overflow-hidden"><span class="inline-block translate-y-full">${word}</span></span>`)
+                .join(" ");
+        }
+
+        const lines = titleRef.current?.querySelectorAll("span > span");
+
+        if (lines) {
+            gsap.set(contentRef.current, { opacity: 0, y: 30 });
+
+            tl.to(lines, {
+                y: 0,
+                stagger: 0.1,
+                delay: 0.2, // Small delay after isReady
+                duration: 1.2
+            })
+                .to(contentRef.current, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1
+                }, "-=0.6");
+        }
+    }, [isReady]);
 
     return (
-        <section id="hero" className="min-h-[90vh] flex flex-col justify-center py-20">
-            <div className="max-w-5xl">
-                <div ref={line1Ref} className="overflow-hidden">
-                    <h1 className="text-6xl md:text-9xl tracking-tighter leading-[0.9] text-white">
-                        DESIGNER DE <br />
-                        <span className="text-primary">SOLUTIONS</span>
-                    </h1>
-                </div>
+        <section id="hero" className="min-h-[90vh] flex flex-col justify-center py-20 relative">
+            <div className="max-w-6xl">
+                <h1 ref={titleRef} className="text-[12vw] md:text-[8rem] font-space font-black tracking-tighter leading-[0.8] mb-12 uppercase">
+                    DESIGNER DE SOLUTIONS
+                </h1>
 
-                <div ref={line2Ref} className="mt-8 flex flex-col md:flex-row md:items-end gap-12">
-                    <p className="max-w-md text-white/60 text-lg leading-relaxed font-archivo">
-                        Basé sur l'innovation, je fusionne le développement de pointe,
-                        l'optimisation SEO de haut niveau et l'intégration d'IA personnalisée
-                        pour créer des expériences numériques uniques.
-                    </p>
+                <div ref={contentRef} className="flex flex-col md:flex-row items-start md:items-end gap-12">
+                    <div className="max-w-md">
+                        <p className="text-xl text-white/60 leading-tight mb-8 font-archivo uppercase">
+                            Architecture de solutions <span className="text-primary italic">Antigravité</span>.
+                            Fusion de l'IA, du SEO et du code haute performance.
+                        </p>
 
-                    <div className="flex flex-wrap gap-4">
-                        <div className="flex items-center gap-2 px-4 py-2 glass text-xs uppercase font-space tracking-widest text-white/80">
-                            <Code size={14} className="text-primary" /> Web Dev
-                        </div>
-                        <div className="flex items-center gap-2 px-4 py-2 glass text-xs uppercase font-space tracking-widest text-white/80">
-                            <Globe size={14} className="text-accent" /> SEO Expert
-                        </div>
-                        <div className="flex items-center gap-2 px-4 py-2 glass text-xs uppercase font-space tracking-widest text-white/80">
-                            <Cpu size={14} className="text-purple-400" /> Custom AI
+                        <div className="flex flex-wrap gap-4">
+                            <span className="flex items-center gap-2 px-4 py-2 glass text-[10px] uppercase tracking-[0.2em] font-space text-white/60 hover:text-primary transition-colors cursor-default">
+                                <Code size={12} /> Web Development
+                            </span>
+                            <span className="flex items-center gap-2 px-4 py-2 glass text-[10px] uppercase tracking-[0.2em] font-space text-white/60 hover:text-accent transition-colors cursor-default">
+                                <Globe size={12} /> SEO Strategy
+                            </span>
+                            <span className="flex items-center gap-2 px-4 py-2 glass text-[10px] uppercase tracking-[0.2em] font-space text-white/60 hover:text-purple-400 transition-colors cursor-default">
+                                <Cpu size={12} /> AI Integration
+                            </span>
                         </div>
                     </div>
-                </div>
 
-                <div className="mt-16 reveal">
-                    <button className="btn-brutal gap-3">
-                        Démarrer un projet <ArrowRight size={20} />
-                    </button>
+                    <div className="md:ml-auto">
+                        <Magnetic>
+                            <button className="btn-brutal !px-12 !py-6 text-lg group">
+                                LANCER UN PROJET
+                                <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
+                            </button>
+                        </Magnetic>
+                    </div>
                 </div>
             </div>
 
-            {/* Decorative vertical line */}
-            <div className="absolute left-1/2 -bottom-20 w-[1px] h-40 bg-gradient-to-b from-primary to-transparent hidden md:block" />
+            {/* Vertical Indicator */}
+            <div className="absolute right-0 bottom-0 flex flex-col items-center gap-4 reveal">
+                <span className="text-[10px] vertical-text font-space tracking-widest text-white/20 uppercase">SCROLL TO ANALYZE</span>
+                <div className="w-[1px] h-20 bg-gradient-to-b from-primary to-transparent" />
+            </div>
         </section>
     );
 };

@@ -1,0 +1,100 @@
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import Magnetic from '../components/Magnetic';
+import { Mail, MessageSquare, MapPin, Send } from 'lucide-react';
+
+const ContactPage: React.FC = () => {
+    return (
+        <div className="max-w-6xl mx-auto py-20">
+            <Helmet>
+                <title>Démarrer un Projet | Kany Dev</title>
+                <meta name="description" content="Contactez Kany Dev pour discuter de vos besoins en développement, SEO ou IA." />
+            </Helmet>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <section className="reveal">
+                    <h1 className="text-6xl md:text-8xl mb-12 tracking-tighter">
+                        DISCUTONS DE <br />
+                        <span className="text-primary italic">VOTRE FUTUR</span>
+                    </h1>
+
+                    <div className="space-y-12 mb-12">
+                        <div className="flex items-start gap-6">
+                            <div className="p-4 glass text-primary"><Mail size={24} /></div>
+                            <div>
+                                <h4 className="text-sm font-space text-white/40 uppercase tracking-widest mb-1">Email</h4>
+                                <p className="text-xl">hello@kanydev.ai</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-6">
+                            <div className="p-4 glass text-accent"><MessageSquare size={24} /></div>
+                            <div>
+                                <h4 className="text-sm font-space text-white/40 uppercase tracking-widest mb-1">Réseaux</h4>
+                                <div className="flex gap-4 text-xl">
+                                    <a href="#" className="hover:text-primary transition-colors">LinkedIn</a>
+                                    <span className="text-white/20">/</span>
+                                    <a href="#" className="hover:text-primary transition-colors">Twitter</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-6">
+                            <div className="p-4 glass text-purple-400"><MapPin size={24} /></div>
+                            <div>
+                                <h4 className="text-sm font-space text-white/40 uppercase tracking-widest mb-1">Localisation</h4>
+                                <p className="text-xl">Paris, France (Full Remote)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="p-8 border-2 border-dashed border-white/10 rounded-2xl">
+                        <p className="text-white/40 text-sm italic">
+                            &gt; "Toutes les demandes reçoivent une réponse sous 24h ouvrées. <br />
+                            Préparez-vous à décoller."
+                        </p>
+                    </div>
+                </section>
+
+                <section className="reveal glass p-8 md:p-12 relative">
+                    <h3 className="text-3xl mb-8 font-space">FORMULAIRE DE LANCEMENT</h3>
+                    <form className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <label className="text-[10px] uppercase tracking-[.3em] font-space text-white/40">Nom Complet</label>
+                                <input type="text" className="w-full bg-white/5 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-primary transition-colors" placeholder="Kany D." />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-[10px] uppercase tracking-[.3em] font-space text-white/40">Email Professionnel</label>
+                                <input type="email" className="w-full bg-white/5 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-primary transition-colors" placeholder="contact@company.com" />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-[10px] uppercase tracking-[.3em] font-space text-white/40">Type de Projet</label>
+                            <select className="w-full bg-white/5 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-primary transition-colors appearance-none">
+                                <option>SEO Strategy & Audit</option>
+                                <option>Custom AI Integration</option>
+                                <option>High-End Web Development</option>
+                                <option>Full Suite (The Works)</option>
+                            </select>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-[10px] uppercase tracking-[.3em] font-space text-white/40">Votre Message</label>
+                            <textarea className="w-full bg-white/5 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-primary transition-colors h-40" placeholder="Racontez-moi votre vision..."></textarea>
+                        </div>
+
+                        <Magnetic>
+                            <button
+                                type="submit"
+                                className="w-full btn-brutal flex items-center justify-center gap-2 text-lg py-4"
+                            >
+                                Envoyer le Message <Send size={20} />
+                            </button>
+                        </Magnetic>
+                    </form>
+                </section>
+            </div>
+        </div>
+    );
+};
+
+export default ContactPage;

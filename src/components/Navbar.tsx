@@ -1,22 +1,33 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Magnetic from './Magnetic';
 
 const Navbar: React.FC = () => {
     return (
-        <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-4xl">
-            <div className="glass px-8 py-4 flex items-center justify-between shadow-2xl">
-                <div className="text-xl font-space font-bold tracking-tighter hover:text-primary transition-colors cursor-pointer">
-                    KANY<span className="text-primary italic">DEV</span>
+        <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-5xl">
+            <div className="glass px-8 py-4 flex items-center justify-between">
+                <Link to="/" className="text-xl font-space font-black tracking-tighter hover:scale-105 transition-transform">
+                    KANY<span className="text-primary">.DEV</span>
+                </Link>
+
+                <div className="hidden md:flex items-center gap-8">
+                    <Magnetic strength={20}>
+                        <Link to="/about" className="text-xs uppercase tracking-widest text-white/60 hover:text-white transition-colors">Expertise</Link>
+                    </Magnetic>
+                    <Magnetic strength={20}>
+                        <Link to="/services" className="text-xs uppercase tracking-widest text-white/60 hover:text-white transition-colors">Services</Link>
+                    </Magnetic>
+                    <Magnetic strength={20}>
+                        <Link to="/projects" className="text-xs uppercase tracking-widest text-white/60 hover:text-white transition-colors">Projets</Link>
+                    </Magnetic>
+                    <Magnetic strength={20}>
+                        <Link to="/contact" className="text-xs uppercase tracking-widest text-white/60 hover:text-white transition-colors">Contact</Link>
+                    </Magnetic>
                 </div>
 
-                <div className="hidden md:flex gap-8">
-                    <a href="#about" className="nav-link">Expertise</a>
-                    <a href="#specialties" className="nav-link">Services</a>
-                    <a href="#contact" className="nav-link">Contact</a>
-                </div>
-
-                <button className="bg-primary text-black px-4 py-2 rounded-xl text-xs font-bold uppercase hover:scale-105 transition-transform active:scale-95 shadow-brutal border border-black">
+                <Link to="/contact" className="px-6 py-2 bg-primary text-black font-space font-bold uppercase text-xs tracking-widest rounded-full hover:-translate-y-1 transition-transform">
                     Menu
-                </button>
+                </Link>
             </div>
         </nav>
     );
