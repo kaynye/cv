@@ -1,46 +1,79 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Terminal } from 'lucide-react';
+import { gsap } from 'gsap';
 
 const AITerminal: React.FC = () => {
-    const [text, setText] = useState('');
-    const fullText = "> Initializing KanyDev.ai...\n> Loading SEO modules... DONE\n> Building Neural Engine... 98%\n> Analysis: High-Conversion Potential Detected.";
+    const [history, setHistory] = useState<string[]>([
+        "Neural Engine v4.0.2 initialized...",
+        "Scanning security protocols...",
+        "Identity verified: KANY_DEV",
+        "Ready for transmission."
+    ]);
+    const [input, setInput] = useState("");
+    const terminalRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        let i = 0;
-        const timer = setInterval(() => {
-            setText(fullText.substring(0, i));
-            i++;
-            if (i > fullText.length) clearInterval(timer);
-        }, 30);
-        return () => clearInterval(timer);
-    }, []);
+    const handleCommand = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!input.trim()) return;
+
+        const cmd = input.toLowerCase().trim();
+        let response = `Command not found: ${cmd}`;
+
+        if (cmd === 'help') response = "Available: projects, services, about, secret, hack, matrix, clear";
+        else if (cmd === 'projects') response = "Analyzing project modules... DONE.";
+        else if (cmd === 'services') response = "Scanning service architecture... ONLINE.";
+        else if (cmd === 'secret') response = "LEVEL 7 ACCESS GRANTED: You found the hidden layer.";
+        else if (cmd === 'hack') {
+            response = "INITIATING OVERRIDE...";
+            gsap.to("body", { backgroundColor: "#facc15", duration: 0.1, repeat: 5, yoyo: true });
+        }
+        else if (cmd === 'matrix') {
+            response = "WAKE UP, NEO...";
+            document.body.classList.add('matrix-mode');
+            setTimeout(() => document.body.classList.remove('matrix-mode'), 3000);
+        }
+        else if (cmd === 'clear') {
+            setHistory([]);
+            setInput("");
+            return;
+        }
+
+        setHistory(prev => [...prev, `> ${input}`, response]);
+        setInput("");
+    };
 
     return (
-        <div className="reveal mt-32 max-w-2xl mx-auto">
-            <div className="bg-black/80 border-2 border-white/20 rounded-lg overflow-hidden brutal-card !shadow-none">
-                <div className="bg-white/10 px-4 py-2 flex items-center justify-between border-b border-white/10">
-                    <div className="flex gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500/50" />
-                        <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-                        <div className="w-3 h-3 rounded-full bg-green-500/50" />
+        <section className="py-20 reveal">
+            <div ref={terminalRef} className="max-w-3xl mx-auto bg-black/80 border border-primary/30 rounded-xl overflow-hidden shadow-2xl shadow-primary/10">
+                <div className="bg-primary/10 px-4 py-2 border-b border-primary/20 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <Terminal size={14} className="text-primary" />
+                        <span className="text-[10px] font-space text-primary uppercase tracking-widest">System Interface</span>
                     </div>
-                    <div className="text-[10px] font-space text-white/40 uppercase tracking-widest">ai-terminal.log</div>
-                    <Terminal size={14} className="text-white/40" />
+                    <div className="flex gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div className="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div className="w-2 h-2 rounded-full bg-primary/40"></div>
+                    </div>
                 </div>
-                <div className="p-6 font-mono text-sm">
-                    <pre className="text-primary whitespace-pre-wrap">
-                        {text}
-                        <span className="animate-pulse">_</span>
-                    </pre>
+                <div className="p-6 h-64 overflow-y-auto font-mono text-xs text-primary/80 space-y-2">
+                    {history.map((line, i) => (
+                        <div key={i} className={line.startsWith('>') ? 'text-white' : ''}>{line}</div>
+                    ))}
+                    <form onSubmit={handleCommand} className="flex items-center gap-2">
+                        <span className="text-white"> $ </span>
+                        <input
+                            type="text"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            className="bg-transparent border-none outline-none flex-1 text-white"
+                            placeholder="Type 'help'..."
+                            autoFocus
+                        />
+                    </form>
                 </div>
             </div>
-
-            <div className="mt-8 text-center">
-                <p className="text-xs font-space uppercase tracking-[.3em] text-white/30 italic">
-                    AI INTEGRATION IN PROGRESS
-                </p>
-            </div>
-        </div>
+        </section>
     );
 };
 

@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from './components/Navbar';
 import Preloader from './components/Preloader';
 import PageTransition from './components/PageTransition';
+import Scene3D from './components/Scene3D';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -101,6 +102,7 @@ const App: React.FC = () => {
 
       <ScrollToTop />
       <PageTransition />
+      <Scene3D />
       <div
         ref={mainRef}
         className={`relative min-h-screen bg-black overflow-hidden selection:bg-primary selection:text-black ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-1000'}`}
