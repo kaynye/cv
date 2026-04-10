@@ -46,11 +46,10 @@
 
 @theme {
   --color-primary: var(--app-accent);
-  --color-secondary: var(--app-bg-main);
-  --color-surface: var(--app-bg-surface);
-  --color-main: var(--app-text-main);
+  --color-accent: var(--app-accent);
+  --color-bg-main: var(--app-bg-main);
+  --color-bg-surface: var(--app-bg-surface);
   --color-text-main: var(--app-text-main);
-  --color-muted: var(--app-text-muted);
   --color-text-muted: var(--app-text-muted);
   --color-border-subtle: var(--app-border);
 
@@ -212,10 +211,23 @@ body::before {
 }
 
 @keyframes glitch {
-  0%, 100% { transform: none; }
-  25% { transform: skewX(-1deg) translateX(-2px); }
-  50% { transform: skewX(1deg) translateX(2px); }
-  75% { transform: skewX(-0.5deg) translateX(-1px); }
+
+  0%,
+  100% {
+    transform: none;
+  }
+
+  25% {
+    transform: skewX(-1deg) translateX(-2px);
+  }
+
+  50% {
+    transform: skewX(1deg) translateX(2px);
+  }
+
+  75% {
+    transform: skewX(-0.5deg) translateX(-1px);
+  }
 }
 
 .reveal {
@@ -250,6 +262,7 @@ body::before {
    CSS-only animations are paused/disabled here.
 ===================================================== */
 @media (prefers-reduced-motion: reduce) {
+
   /* Disable glitch hover animation */
   .glitch-hover:hover {
     animation: none;
@@ -264,6 +277,10 @@ body::before {
 
   /* Pause the ribbon scroll animation */
   @keyframes scroll {
-    from, to { transform: translateX(0); }
+
+    from,
+    to {
+      transform: translateX(0);
+    }
   }
 }

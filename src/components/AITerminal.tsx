@@ -43,34 +43,61 @@ const AITerminal: React.FC = () => {
     };
 
     return (
-        <section className="py-20 reveal">
-            <div ref={terminalRef} className="max-w-3xl mx-auto bg-surface backdrop-blur-xl border border-border-subtle rounded-xl overflow-hidden shadow-2xl shadow-primary/10">
-                <div className="bg-primary/10 px-4 py-2 border-b border-border-subtle flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <Terminal size={14} className="text-primary" />
-                        <span className="text-[10px] font-space text-primary uppercase tracking-widest">System Interface</span>
+        <section className="py-32 reveal px-6">
+            <div
+                ref={terminalRef}
+                className="max-w-4xl mx-auto border-[3px] border-text-main shadow-[12px_12px_0px_0px_var(--app-text-main)] overflow-hidden transition-all duration-300"
+                style={{ backgroundColor: 'var(--app-bg-main)' }}
+            >
+                {/* Terminal Header - Constant Brutalist Yellow */}
+                <div className="bg-primary px-5 py-3 border-b-[3px] border-text-main flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <Terminal size={18} className="text-black" strokeWidth={3} />
+                        <span className="text-xs font-mono font-black text-black uppercase tracking-widest">
+                            System_Interface_v4.2.0
+                        </span>
                     </div>
-                    <div className="flex gap-1.5">
-                        <div className="w-2 h-2 rounded-full bg-white/10"></div>
-                        <div className="w-2 h-2 rounded-full bg-white/10"></div>
-                        <div className="w-2 h-2 rounded-full bg-primary/40"></div>
+                    <div className="flex gap-2">
+                        <div className="w-3 h-3 border-2 border-black bg-transparent"></div>
+                        <div className="w-3 h-3 border-2 border-black bg-transparent"></div>
+                        <div className="w-3 h-3 border-2 border-black bg-black"></div>
                     </div>
                 </div>
-                <div className="p-6 h-48 md:h-64 overflow-y-auto font-mono text-xs text-text-muted space-y-2">
+
+                {/* Terminal Body - Paper in Light Mode / OLED in Dark Mode */}
+                <div
+                    className="p-8 h-64 md:h-80 overflow-y-auto font-mono text-sm space-y-3 scrollbar-custom"
+                    style={{ color: 'var(--app-text-main)' }}
+                >
                     {history.map((line, i) => (
-                        <div key={i} className={line.startsWith('>') ? 'text-main font-bold' : ''}>{line}</div>
+                        <div
+                            key={i}
+                            className={`
+                                ${line.startsWith('>') ? 'text-primary font-black' : 'opacity-80'} 
+                                ${line.includes('GRANTED') ? 'bg-primary/20 p-1 border-l-4 border-primary' : ''}
+                            `}
+                        >
+                            {line}
+                        </div>
                     ))}
-                    <form onSubmit={handleCommand} className="flex items-center gap-2">
-                        <span className="text-main font-bold"> $ </span>
+                    <form onSubmit={handleCommand} className="flex items-center gap-3 pt-2">
+                        <span className="text-primary font-black"> [SYSTEM@KANY_DEV]:~$ </span>
                         <input
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            className="bg-transparent border-none outline-none flex-1 text-main"
+                            className="bg-transparent border-none outline-none flex-1 text-text-main placeholder:opacity-30"
                             placeholder="Type 'help'..."
                             autoFocus
                         />
                     </form>
+                </div>
+
+                {/* Footer status bar */}
+                <div className="bg-text-main text-bg-main px-4 py-1 text-[8px] font-mono flex justify-between uppercase font-bold">
+                    <span>STATUS: ONLINE</span>
+                    <span>ENCRYPTION: AES-256</span>
+                    <span>LATENCY: 12ms</span>
                 </div>
             </div>
         </section>

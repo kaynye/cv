@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Hero from '../components/Hero';
 import Specialties from '../components/Specialties';
+import ExpertiseChart from '../components/ExpertiseChart';
 import AITerminal from '../components/AITerminal';
 import Projects from '../components/Projects';
 import Contact from '../components/Contact';
@@ -19,6 +20,7 @@ const Home: React.FC<HomeProps> = ({ isReady }) => {
             </Helmet>
             <Hero isReady={isReady} />
             <Specialties />
+            <ExpertiseChart />
             <AITerminal />
             <Projects />
             <Contact />

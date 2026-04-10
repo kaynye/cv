@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Magnetic from './Magnetic';
 import { gsap } from 'gsap';
 import { ArrowRight, Code, Cpu, Globe } from 'lucide-react';
@@ -55,14 +56,14 @@ const Hero: React.FC<HeroProps> = ({ isReady }) => {
             <div className="max-w-6xl">
                 <div className="w-16 h-1 bg-primary mb-8" />
                 <h1 ref={titleRef} className="text-4xl sm:text-6xl md:text-7xl xl:text-[8rem] font-space font-black tracking-tighter leading-[0.88] mb-12 text-main uppercase overflow-hidden">
-                    DESIGNER DE SOLUTIONS
+                    Kany Dev
                 </h1>
 
                 <div ref={contentRef} className="flex flex-col md:flex-row items-start md:items-end gap-12">
                     <div className="max-w-md">
                         <p className="text-xl text-muted leading-tight mb-8 font-archivo uppercase">
-                            Architecture de solutions <span className="text-primary italic">Antigravité</span>.
-                            Fusion de l'IA, du SEO et du code haute performance.
+                            Expert en ingénierie <span className="text-primary italic">Web</span>.
+                            Development d'applications, optimisation du SEO et des performances.
                         </p>
 
                         <div className="flex flex-wrap gap-4">
@@ -75,15 +76,18 @@ const Hero: React.FC<HeroProps> = ({ isReady }) => {
                             <span className="flex items-center gap-2 px-4 py-2 glass text-[10px] uppercase tracking-[0.2em] font-space text-muted hover:text-primary transition-colors cursor-default">
                                 <Cpu size={12} /> AI Integration
                             </span>
+                            <span className="flex items-center gap-2 px-4 py-2 glass text-[10px] uppercase tracking-[0.2em] font-space text-muted hover:text-primary transition-colors cursor-default">
+                                <Cpu size={12} /> + d'autres
+                            </span>
                         </div>
                     </div>
 
                     <div className="md:ml-auto">
                         <Magnetic>
-                            <button className="btn-brutal !px-12 !py-6 text-lg group">
+                            <Link to="/contact" className="btn-brutal !px-12 !py-6 text-lg group inline-flex items-center">
                                 LANCER UN PROJET
                                 <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
-                            </button>
+                            </Link>
                         </Magnetic>
                     </div>
                 </div>
