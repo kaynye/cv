@@ -5,19 +5,19 @@ const Specialties: React.FC = () => {
     const specialties = [
         {
             title: "Développement",
-            desc: "Création d'architectures robustes avec React et TypeScript. Performance et scalabilité au cœur du code.",
+            desc: "Création d'architectures robustes avec Web et mobile performantes et sécurisées.",
             icon: Code2,
             tags: ["Fullstack", "Clean Code", "React"]
         },
         {
-            title: "Optimisation SEO",
-            desc: "Dominez les classements. Stratégies techniques pointues pour une visibilité organique maximale.",
+            title: "Optimisation Referencement",
+            desc: "Developpement d'un strategie SEO / SEA, ameliorez votre visibilité sur les moteurs de recherche.",
             icon: SearchCode,
             tags: ["Core Web Vitals", "Semantics", "Speed"]
         },
         {
             title: "Intégration d'IA",
-            desc: "Automatisation et intelligence. Intégration de LLMs et d'agents personnalisés pour booster vos workflows.",
+            desc: "Intégration de LLMs et d'agents personnalisés pour booster vos workflows, commun",
             icon: Cpu,
             tags: ["LLMs", "Automation", "Agents"]
         }
